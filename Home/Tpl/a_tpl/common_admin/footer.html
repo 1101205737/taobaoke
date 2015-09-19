@@ -1,0 +1,83 @@
+<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+		<script src="{:APP_PATH}Tpl/{:C('DEFAULT_THEME')}/_static/admin/assets/js/jquery-2.0.3.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="{:APP_PATH}Tpl/{:C('DEFAULT_THEME')}/_static/admin/assets/js/jquery-1.10.2.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='{:APP_PATH}Tpl/{:C('DEFAULT_THEME')}/_static/admin/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='{:APP_PATH}Tpl/{:C('DEFAULT_THEME')}/_static/admin/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="{:APP_PATH}Tpl/{:C('DEFAULT_THEME')}/_static/admin/assets/js/bootstrap.min.js"></script>
+		<script src="{:APP_PATH}Tpl/{:C('DEFAULT_THEME')}/_static/admin/assets/js/typeahead-bs2.min.js"></script>
+		<!-- page specific plugin scripts -->
+		<!-- ace scripts -->
+		<script src="{:APP_PATH}Tpl/{:C('DEFAULT_THEME')}/_static/admin/assets/js/ace-elements.min.js"></script>
+		<script src="{:APP_PATH}Tpl/{:C('DEFAULT_THEME')}/_static/admin/assets/js/ace.min.js"></script>
+
+		<!-- inline scripts related to this page -->	
+        <script src="public/date/js/lhgcalendar.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/public/js/jquery.form.js"></script>
+    <link href="public/date/css/lhgcalendar.css" rel="stylesheet" type="text/css">
+    <script>
+    var submit = true;
+    $(function(){
+        $('.date').calendar();        
+        $("form[method!='get']").submit(function(){
+            if(!submit) return false;
+            $(this).ajaxSubmit({dataType:'json',
+                beforeSubmit:function(){
+                    submit = false;
+                    showmsg('正在提交');
+                },success:function(data){
+                    submit = true;
+                    if(data.state==1) setTimeout(function(){window.location.reload();},500);
+                    showmsg(data.msg);
+                }
+            });
+            return false;
+        });
+        
+    });
+    function ajHref(obj){
+        if(!submit) return false;
+        showmsg('正在提交');
+        submit = false;
+        $.get($(obj).attr('href'),function(data){
+            submit = true;
+            if(data.state==1) window.location.reload();//setTimeout(function(){window.location.reload();},500);
+            showmsg(data.msg);
+        },'json');
+        return false;
+    }
+    
+    function showmsg(msg){
+	$("#tip").remove();
+	$tip = $('<div id="tip" style="font-weight:bold;position:fixed;top:240px;left: 50%;z-index:9999;background:rgb(111, 179, 224);padding:18px 30px;border-radius:8px;color:#fff;font-size:16px;">'+msg+'</div>');
+        $('body').append($tip);
+	$tip.stop(true).css('margin-left', -$tip.outerWidth() / 2).fadeIn(500).delay(2000).fadeOut(500);
+    }
+    function changesort($type){
+        $("#p_id option[root=1]").hide();
+        $("#p_id option[type='"+$type+"']").show();
+    }
+    </script>
+</body>
+</html>

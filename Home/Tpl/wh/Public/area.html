@@ -1,0 +1,23 @@
+<div class="area">
+        <a class="juan-logo fl" href="/" title="{$setting['site_name']}首页">
+            <div class="fl" style="margin-top:20px">
+                <img style='width:163px;height:37px;' src="{$setting['site_logo']}">
+            </div>
+        </a>
+        <div class="protection">
+            <php>$ad=getAd('logo_right',1,$adlist);$ad=$ad[0];if($ad){</php>
+            <a title="{$ad.title}" class="" href="{$ad.url}" {$ad['blank']?'target="_blank"':''}>
+                <img style="width:565px;height:53px;" src="{$ad.pic_url}">
+            </a>
+            <php>}</php>
+        </div>
+        <div class="search">
+            <form name="searchform" id="searchform" action="index.php" method="get">
+                {:setParam(array('m'=>'search','a'=>'index'))}
+            <span class="search-area fl">
+                <input name="keywords" id="keywords" class="txt" value="请输入想找的宝贝" title="请输入想找的宝贝" type="text" onblur="if (value=='') {value='请输入想找的宝贝'}" onfocus="if(value=='请输入想找的宝贝') {value=''}">
+            </span>
+            <input value="搜全站" class="smt fr" type="submit">
+            </form>
+        </div>
+    </div>

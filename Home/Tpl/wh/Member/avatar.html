@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>会员中心 - {$setting['site_seo_title']} - {$setting['site_name']}</title>
+        <meta name="keywords" content="{$setting['site_seo_keywords']}" />
+        <meta name="description" content="{$setting['site_seo_description']}">
+    <include file="Public:head" />
+</head>
+<body class="body-white">
+<include file="Public:nav" />
+<div class="container tc-main">
+    <div class="row">
+        <div class="span2">
+            <include file="Public:usernav"/>
+        </div>
+        <div class="span10">
+            <div class="tabs">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#one" data-toggle="tab"><i class="fa fa-list-alt"></i> 修改头像</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="one">
+                        <form class="form-horizontal J_ajaxForm" action="{:u('member/avatar')}" method="post" enctype="multipart/form-data">
+                            {:setParam(array('op'=>'do'))}
+                            <div class="control-group">
+                                <label class="control-label" for="">{$this->my['uname']}</label>
+                                <div class="controls">
+                                    <img style='width:100px;height:100px;' src='{$my[pic_url]}' />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="">选择头像</label>
+                                <div class="controls">
+                                    <input type="file" class="span7" name='pic_url' value="">
+                                </div>
+                            </div>                                                                                                            
+                             
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button type="submit" class="btn">保存</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>							
+            </div>
+        </div>
+    </div>
+</div>
+<!--主体 start-->
+<!--主体 end-->
+<include file="Public:footer" />
+<include file="Public:scripts" />
+<script src="/public/js/slippry.min.js"></script>
+<script>
+</script>
+</body>
+</html>

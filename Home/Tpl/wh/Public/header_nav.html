@@ -1,0 +1,37 @@
+<div class="mainNav">
+     <div class="nav" style="position:relative">
+                <php>$allsort = IndexModel::I()->getAllSort();
+
+        </php>
+            <ul id="" class="navigation fl">
+           		 <li style="background:#b1191a" class="all_sort_bar"><a href="javascript:;" style="width:114px">全部商品分类</a></li>
+                <li class="" id="menu-item-1"><a href="/">首页</a></li><php>$ad = getAd('nav',99,$adlist)</php>
+                <php>if($ad){</php>
+                <volist name='ad' id='data'>                
+                <li class="nav_sub_sort_bar"><a href="{$data.url}">{$data.title}</a>
+                </volist>
+                <php>}else{</php>
+                <php>$type = array('1'=>'goods/goodslist','2'=>'article/artlist')</php>
+            	<volist name='nav' id='data'>                
+                <li sort_id='{$data[sort_id]}' class="nav_sub_sort_bar" id="menu-item-{$i}"><a href="{:U($type[$data['type']],array('id'=>$data['sort_id']))}">{$data['sort_name']}</a>
+                <php>if($allsort['subsort'][$data['sort_id']]){</php>
+                	<div class="nav_sub_sort">
+                    <volist name='allsort[subsort][$data[sort_id]]' id='vo'>
+                    	<a href="{:U($type[$data['type']],array('id'=>$key))}" style="padding:0;float:none"><div class="nav_sub_sort_li">{$vo}</div></a>
+                    </volist>
+                    </div>
+                <php>}</php>
+                </li>
+                </volist>
+                <php>}</php>
+            </ul>
+    
+        <div class="clear"></div>
+        <div id="all_sort" class="all_sort_bar" style="z-index: -1;">
+           <div class="all_sort">
+                 <include file="public:side_nav" />
+           </div>
+        </div> 
+       </div>
+        
+ </div>

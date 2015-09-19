@@ -1,0 +1,97 @@
+<!-- 页头 -->
+<div id="toolbar">
+    <div class="bar-con">
+        <ul class="topNav fl">
+            <PHP>$_GET['m']=$Think.MODULE_NAME;</PHP>
+            <li class="first"><a href="{$setting['site_domain']}" class="{$mod=='topic'?'':'active'}">{$setting['site_name']}</a>
+            </li>
+        </ul>
+        <div class="right-show fr">
+            <if condition="$my['uid'] gt 0">
+                <div class="union-login">
+                    <a class="dropdown-toggle user" href="{:U('member/index')}">{$my['uname']}</a>
+                    <a href="{:U('member/index')}"><i class="fa fa-user"></i> &nbsp;个人中心</a>
+                    <a onclick="return ajHref(this)" href="{:U('member/logout')}"><i class="fa fa-sign-out"></i> &nbsp;退出</a>
+                </div>
+                <else/>
+                <php>include 'api/qqconnect/config.php';if($config['appid']){</php>
+                <div class="union-login"> <a href="http://{$_SERVER['SERVER_NAME']}/api/qqconnect/oauth/index.php" rel="nofollow"><img src="/public/image/qqlogin.png"></a> |</div>
+                <php>}</php>
+                <div class="login-show"><a href="{:U('member/login')}" rel="nofollow">登录</a><a href="{:U('member/register')}" rel="nofollow">免费注册</a>　|</div>
+                
+            </if>            
+            <div class="other-show">
+                <php>if($setting['online_kefu']){</php>
+                <a href="http://wpa.qq.com/msgrd?v=3&uin={$setting['online_kefu']}&site=qq&menu=yes" target="_top" rel="nofollow">在线客服</a>
+                <php>}</php>
+                <a href="{:U('jfmall/index')}" target="_top">积分商城</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header">
+    <div class="area">
+        <a class="juan-logo fl" href="/" title="{$setting['site_name']}首页">
+            <div class="fl" style="margin-top:20px">
+                <img style='width:163px;height:37px;' src="{$setting['site_logo']}">
+            </div>
+        </a>
+        <div class="protection">
+            <php>$ad=getAd('logo_right',1,$adlist);$ad=$ad[0];if($ad){</php>
+            <a title="{$ad.title}" class="" href="{$ad.url}" {$ad['blank']?'target="_blank"':''}>
+                <img style="width:565px;height:53px;" src="{$ad.pic_url}">
+            </a>
+            <php>}</php>
+        </div>
+        <div class="search">
+            <form name="searchform" id="searchform" action="index.php" method="get">
+                {:setParam(array('m'=>'search','a'=>'index'))}
+            <span class="search-area fl">
+                <input name="keywords" id="keywords" class="txt" value="请输入想找的宝贝" title="请输入想找的宝贝" type="text" onblur="if (value=='') {value='请输入想找的宝贝'}" onfocus="if(value=='请输入想找的宝贝') {value=''}">
+            </span>
+            <input value="搜全站" class="smt fr" type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div class="mainNav">
+        <div class="nav">
+        <php>$allsort = IndexModel::I()->getAllSort();
+
+        </php>
+            <ul id="" class="navigation fl">
+           		 <li style="background:#b1191a" class="all_sort_bar"><a href="javascript:;" style="width:114px">全部商品分类</a></li>
+                <li class="" id="menu-item-1"><a href="/">首页</a></li><php>$ad = getAd('nav',99,$adlist)</php>
+                <php>if($ad){</php>
+                <volist name='ad' id='data'>                
+                <li class="nav_sub_sort_bar"><a href="{$data.url}">{$data.title}</a>
+                </volist>
+                <php>}else{</php>
+                <php>$type = array('1'=>'goods/goodslist','2'=>'article/artlist')</php>
+            	<volist name='nav' id='data'>                
+                <li sort_id='{$data[sort_id]}' class="nav_sub_sort_bar" id="menu-item-{$i}"><a href="{:U($type[$data['type']],array('id'=>$data['sort_id']))}">{$data['sort_name']}</a>
+                <php>if($allsort['subsort'][$data['sort_id']]){</php>
+                	<div class="nav_sub_sort">
+                    <volist name='allsort[subsort][$data[sort_id]]' id='vo'>
+                    	<a href="{:U($type[$data['type']],array('id'=>$key))}" style="padding:0;float:none"><div class="nav_sub_sort_li">{$vo}</div></a>
+                    </volist>
+                    </div>
+                <php>}</php>
+                </li>
+                </volist>
+                <php>}</php>
+            </ul>
+
+            
+            <div class="clear"></div>
+            <div id="all_sort" class="all_sort_bar" style="z-index: -1;">
+               <div class="all_sort">
+                     <include file="public:side_nav" />
+               </div>
+            </div> 
+        </div>
+
+       </div>
+    </div>
+</div>
+<!-- /页头 -->

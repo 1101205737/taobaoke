@@ -1,0 +1,26 @@
+<volist name='goods' id='data'>
+<a class="goods-a" href="{:U('wap/detail',array('id'=>$data['goods_id']))}" target="_blank"><li style="overflow: hidden;">
+                                
+                                    <img class="lazy" src="{$data['pic_url']}" alt="" title="" style="display: inline;">
+                                
+                                    <h1>{$data['title']}</h1>
+                                
+                                    <div class="list-price buy">
+                                        <span class="price-new">
+                                            <i>￥</i>{$data['discount_price']}
+                                        </span>
+                                        <i class="del">￥{$data['price']}</i>
+                                        <eq name="data.goods_type" value="tmall">
+                                        <span class="good-btn">天猫</span>
+                                        </eq>
+                                        <eq name="data.goods_type" value="taobao">
+                                        <span class="good-btn">淘宝</span>
+                                        </eq>
+                                    </div>
+                                
+                            </li> </a>                                                        
+</volist>
+<script>
+    page = {$_GET['p']};
+    $(".num label").html(page);
+</script>

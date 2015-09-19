@@ -1,0 +1,1 @@
+<?php $url_mod = array("URL_MODEL"=>2);?>

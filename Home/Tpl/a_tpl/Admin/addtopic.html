@@ -1,0 +1,143 @@
+<include file="common_admin:header" />
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>    
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <include file="common_admin:left" />
+        <div class="main-content">
+            <include file="common_admin:nav" />
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <form class="form-horizontal" role="form" action="{:U('admin/addtopic')}" method="post" enctype="multipart/form-data">
+                            {:setParam(array('op'=>'do','tid'=>$topic['tid']))}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right" for="form-field-1">专场图片<span style="color:#f00;">*</span></label>
+                                <div class="col-sm-9">
+                                <input  class="col-sm-12" type="file" name="pic_url" />    
+                                </div>
+                            </div>
+                            <php>if($topic){</php>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right" for="form-field-1">专场图片<span style="color:#f00;">*</span></label>
+                                <div class="col-sm-9">
+                                <img src='{$topic[pic_url]}' style='width:280px;height:280px;' />
+                                </div>
+                            </div>
+                            <php>}</php>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right" for="form-field-1">专场名称<span style="color:#f00;">*</span></label>
+                                <div class="col-sm-9"><input class="col-sm-12" type="text" name="topic_name" value="{$topic['topic_name']}"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right" for="form-field-1">开始时间<span style="color:#f00;">*</span></label>
+                                <div class="col-sm-9"><input class="date col-sm-12" readonly="readonly" type="text" name="start_time" value="<php>if($topic['start_time'])echo date('Y-m-d',$topic['start_time']);</php>"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right" for="form-field-1">结束时间<span style="color:#f00;">*</span></label>
+                                <div class="col-sm-9"><input class="date col-sm-12" readonly="readonly" type="text" name="end_time" value="<php>if($topic['end_time'])echo date('Y-m-d',$topic['end_time']);</php>"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right">店铺要求<span style="color:#f00;">*</span></label>	
+                                <div class="col-sm-9"><input class="col-sm-12" type="text" name="shop_conditions" value="{$topic['shop_conditions']}"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right">价格要求<span style="color:#f00;">*</span></label>	
+                                <div class="col-sm-9"><input class="col-sm-12" type="text" name="price_conditions" value="{$topic['price_conditions']}"></div>
+                            </div>                           
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right">是否审核<span style="color:#f00;">*</span></label>	
+                                <div class="col-sm-9">
+                                <select class="col-sm-12" name='state'>
+                                        <option value="1">已审核</option>
+                                        <option value="-1">待审核</option>
+                                    </select>
+                                    <script>
+                                        $("select[name='state'] option[value='{$topic[state]}']").attr('selected', 'selected');
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right">活动介绍 <span style="color:#f00;">*</span></label>
+                                <link rel="stylesheet" href="public/kindeditor/themes/default/default.css" />
+                                <link rel="stylesheet" href="public/kindeditor/plugins/code/prettify.css" />
+                                <script charset="utf-8" src="public/kindeditor/kindeditor.js"></script>
+                                <script charset="utf-8" src="public/kindeditor/lang/zh_CN.js"></script>
+                                <script charset="utf-8" src="public/kindeditor/plugins/code/prettify.js"></script>
+                                <script>
+                                    KindEditor.ready(function (K) {
+                                        var editor1 = K.create('textarea[name="content"]', {
+                                            cssPath: 'public/kindeditor/plugins/code/prettify.css',
+                                            uploadJson: 'public/kindeditor/php/upload_json.php',
+                                            fileManagerJson: 'public/kindeditor/php/file_manager_json.php',
+                                            allowFileManager: true,
+                                            afterCreate: function () {
+                                                var self = this;
+                                                K.ctrl(document, 13, function () {
+                                                    self.sync();
+                                                    K('form[name=example]')[0].submit();
+                                                });
+                                                K.ctrl(self.edit.doc, 13, function () {
+                                                    self.sync();
+                                                    K('form[name=example]')[0].submit();
+                                                });
+                                            }
+                                        });
+                                        prettyPrint();
+                                    });
+                                </script>
+                                <div class="col-sm-9">
+                                    <textarea class="col-sm-12" name="content" style="height:500px;visibility:hidden;">{:stripslashes($topic['content'])}</textarea>
+                                </div>
+                            </div>
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-4 col-md-4">
+                                    <button class="btn btn-info btn-block" type="submit">
+                                        <i class="icon-ok bigger-110"></i>
+                                        确认
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container-inner -->
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+<script>
+    $(function () {
+        $('input[type="file"]').ace_file_input({
+            no_file: 'No File ...',
+            btn_choose: 'Choose',
+            btn_change: 'Change',
+            droppable: false,
+            onchange: null,
+            thumbnail: false //| true | large
+                    //whitelist:'gif|png|jpg|jpeg'
+                    //blacklist:'exe|php'
+                    //onchange:''
+                    //
+        });
+    });
+</script>
+<include file="common_admin:footer" />

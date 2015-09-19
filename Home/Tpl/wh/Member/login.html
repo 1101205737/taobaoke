@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>用户登录 - {$setting['site_seo_title']} - {$setting['site_name']}</title>
+        <meta name="keywords" content="{$setting['site_seo_keywords']}" />
+        <meta name="description" content="{$setting['site_seo_description']}">
+    <include file="Public:head" />
+    <link rel="stylesheet" type="text/css" href="__TMPL__statics/css/login.css">
+</head>
+<body class="body-white">
+<include file="Public:nav" />
+<!--主体 start-->
+<div class="main">
+    <div class="login-main">
+
+        <div class="login-content">
+            <div class="title">
+                <span class="hd">用户登录</span>
+                <span class="tips">尊敬的用户，欢迎您回来！</span>
+                <p class="other">还没有账号，<a href="{:U('member/register')}" rel="nofollow">立即去注册</a>；<a href="{:U('member/forgetpassword')}" rel="nofollow">忘记密码</a></p>
+            </div>
+            <div class="login-center">
+                <div class="content-landing fl">
+                    <form action="{:U('member/login')}" method="post" id="login">
+                        {:setParam(array('op'=>'do'))}
+                        <ul>
+                            <li>
+                                <label class="normal">账号：</label>
+                                <input value="" class="normal-input" id="account" placeholder="请输入手机号/邮箱/昵称" name="uname" autocomplete="off" type="text">
+                            </li>
+                            <li>
+                                <label class="normal">密码：</label>
+                                <input class="normal-input" placeholder="请输入密码" name="password" autocomplete="off" type="password">
+                            </li>                                
+                            <li>
+                                <label class="normal"></label>
+                                <div class="btn">
+                                    <input class="sub smt-o" value="登录" autocomplete="off" type="submit">
+                                </div>
+                            </li>
+                            
+                            <li class="third-login">
+                                <label class="normal"></label>
+                                <div class="union-login">
+                                    <p class="union-title">合作网站账号登陆
+                                        <em class="line"></em>
+                                    </p>
+                                    <div class="third-box">
+                                        
+                                        <a class="qq" href="http://{$_SERVER['SERVER_NAME']}/api/qqconnect/oauth/index.php"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </form>
+                </div>
+                <div class="login-l-img fr">
+                    <img src="__TMPL__statics/images/login-bj-ad.png">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--主体 end-->
+<include file="Public:footer" />
+<include file="Public:scripts" />
+<script>
+</script>
+</body>
+</html>

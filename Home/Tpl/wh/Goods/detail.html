@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <title><php>if($goods['seo_title']){</php>{$goods['seo_title']}<php>}else{</php>{$goods['title']}<php>}</php> - {$setting['site_name']}</title>
+    <meta name="keywords" content="<php>if($goods['seo_keywords']){</php>{$goods['seo_keywords']}<php>}else{</php>{$setting['site_seo_keywords']}<php>}</php>" />
+    <meta name="description" content="<php>if($goods['seo_description']){</php>{$goods['seo_description']}<php>}else{</php>{$setting['site_seo_description']}<php>}</php>" />
+    <include file="Public:head" />
+    <link href="__TMPL__statics/css/goods.css" rel="stylesheet" />
+    <style>
+    #article_content img {
+        height:auto !important
+    }
+	.old_price{text-decoration:line-through}
+    </style>
+</head>
+
+<body class="">
+    <include file="Public:nav" />
+    <!-- 主体 -->
+    <div class="main mt20 clear">
+        <!-- 面包屑 -->
+        <div class="place-show">
+            <div class="place-explain fl">当前位置：
+                <a href="/">{$setting['site_name']}</a>
+                &gt;
+                <php>$parentSort = IndexModel::I()->getSortById($goods['p_id']);</php>
+                <php>if($parentSort){</php><a href="{:U('goods/goodslist',array('id'=>$parentSort['sort_id']))}">{$parentSort['sort_name']} &gt; </a><php>}</php>
+                <a href="{:U('goods/goodslist',array('id'=>$goods['sort_id']))}">{$goods['sort_name']}</a>
+                &gt;
+               {$goods['title']}
+            </div>
+        </div>
+        <!--items start-->
+        <div class="show_box fl">
+            <div class="show_body mb20 clear">
+                <div class="show_img fl">
+                    <a class="show_big buy" title="{$goods_name}">
+                        <span class="zhijian">质检</span>
+                        <img alt="{$goods['title']}" src="{$goods['pic_url']}" height="310" width="310">
+                    </a>
+                </div>
+                <div class="price-info pr  fl">
+                    <h3 class="title">{:cutstr($goods['title'],54)}</h3>
+                    <p class="body_price clear">
+                        <span class="price_f fl buy">
+                            <em class="price-ico">￥</em>
+                            <em class="price">{$goods['discount_price']}</em>
+                            <em class="old_price">（原价：{$goods['price']}）</em>
+                            <em><php>$z = sprintf( "%.2f",$goods['discount_price']/$goods['price'])*10;if($z<10){echo "(".$z."折)";}</php></em>
+                        </span>
+                    </p>
+                    <p class="btn" style="display:block">
+                    <a class="y-like my-like mt5 fl item-like-btn" href="javascript:;" onclick="favor({$goods['goods_id']})">
+                            <em class="icon icon-k"></em>收藏</a> 
+                    </p>
+                    <p class="btn">
+                        <a class="go_btn buy fl" <php>if($goods['click_url']){</php>href="{$goods['click_url']}"<php>}else{</php>biz-itemid="{$item_id}" isconvert=1 href="{$goods['item_url']}"<php>}</php> target="_blank" rel="nofollow">
+                            <span>去<eq name="goods['goods_type']" value="tmall">天猫</eq><eq name="goods_type" value="taobao">淘宝</eq>购买&gt;&gt;</span>
+                        </a>
+                    </p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div style="margin-bottom:15px;height:20px;">
+            <!-- JiaThis Button BEGIN -->
+            <div class="jiathis_style">
+                <span class="jiathis_txt">分享到：</span>
+                <a class="jiathis_button_qzone">QQ空间</a>
+                <a class="jiathis_button_tsina">新浪微博</a>
+                <a class="jiathis_button_tqq">腾讯微博</a>
+                <a class="jiathis_button_weixin">微信</a>
+                <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+                <a class="jiathis_counter_style"></a>
+            </div>
+            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+            <!-- JiaThis Button END -->
+            </div>
+            <div class="quality mb20">
+                <div class="quality_bg"></div>
+            </div>
+
+            <div class="bady-part">
+                <div class="bady-tab bady_bg clear" id="bady-tab">
+                    <ul class="fl">
+                        <li><a class="active" href="javascript:;">商品详情</a>
+                        </li>
+                    </ul>
+                    <div class="gobuy fr buy">
+                        <p class="price fl">
+                            <em class="yang">￥</em>
+                            <span class="jd-current">{$goods['discount_price']}</span></p>
+                        <a class="btn  fl" <php>if($goods['click_url']){</php>href="{$goods['click_url']}"<php>}else{</php>biz-itemid="{$item_id}" isconvert=1 href="{$goods['item_url']}"<php>}</php> target="_blank">
+                            <span>去<eq name="goods[goods_type]" value="tmall">天猫</eq><eq name="goods[goods_type]" value="taobao">淘宝</eq>购买&gt;&gt;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="con">
+                    <div style="padding-top:20px;" class="information">
+                        <div class="bady_info">
+                            <h3>
+                                <div class="line"></div>
+                                <div class="line-txt">商品质检
+                                    <a name="zj"></a>
+                                </div>
+                            </h3>
+                            <div class="info_s1">
+                                <img src="__TMPL__statics/images/info_s1.jpg" alt="">
+                            </div>
+                        </div>
+
+                        <div class="bady_info">
+                            <h3>
+                                <div class="line"></div>
+                                <div class="line-txt">商品描述
+                                    <a name="ms"></a>
+                                </div>
+                            </h3>
+                            <div class="info_s1 clear" id='gdetial'>
+                                <if condition="$goods['item_body']">
+                                    {$goods['item_body']}
+                                <else/>
+                                <script src="/public/js/jquery.js"></script>
+                                    <script>
+										var url = "<php>echo $goods['item_url']</php>";
+										$.get('{:U("ajax/ajGetGoodsDetial")}',{url:url},function(json){
+											$("#gdetial").append(json);
+											$("#gdetial").html(desc);
+										});
+                                    </script>
+                                    商品详情加载中，请稍等...
+                                </if>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="padding-top: 0px;" class="information">
+                        <div class="xiaobao">
+                            <div class="xb_icon">
+                                <a class="xb_s xb_s1" href="javascript:;" onmouseover="show(1)">商家审核</a>
+                                <a class="xb_s xb_s2" href="javascript:;" onmouseover="show(2)">买手砍价</a>
+                                <a class="xb_s xb_s3" href="javascript:;" onmouseover="show(3)">验货质检</a>
+                                <a class="xb_s xb_s4" href="javascript:;" onmouseover="show(4)">价格监控</a>
+                                <a class="xb_s xb_s5" href="javascript:;" onmouseover="show(5)">全国包邮 </a>
+                                <a class="xb_s xb_s6" href="javascript:;" onmouseover="show(6)">七天退换</a>
+                                <a class="xb_s xb_s7" href="javascript:;" onmouseover="show(7)">闪电发货</a>
+                            </div>
+                        </div>
+                        <div class="xb_js">
+                            <div class="steup steup_01" style="display: block;"></div>
+                            <div style="display: none;" class="steup steup_02"></div>
+                            <div style="display: none;" class="steup steup_03"></div>
+                            <div style="display: none;" class="steup steup_04"></div>
+                            <div style="display: none;" class="steup steup_05"></div>
+                            <div style="display: none;" class="steup steup_06"></div>
+                            <div style="display: none;" class="steup steup_07"></div>
+                            <em class="jiao"></em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hot_box fr">
+            <div class="hot_goods">
+                <h3>
+                    <div class="line"></div>
+                    <div class="line-txt">HOT同类热卖</div>
+                </h3>
+                <ul>
+                    <volist name="hot_goods" id="v">
+                    <li>
+                        <a target="_blank" href="{:U('goods/detail',array('id'=>$v['goods_id']))}">
+                            <img src="{$v.pic_url}" alt="{$v.title}">
+                            <div class="hot_price">
+                                <em class="hot_yang">￥</em>
+                                <em class="hot_num">{$v.discount_price}</em>
+                            </div>
+                        </a>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /主体 -->
+    <include file="Public:footer" />
+    <include file="Public:scripts" />
+    <script type="text/javascript">
+        function show(i) {
+            $('.steup').hide();
+            $('.steup_0'+i).show();
+        }
+        $('#bady-tab').waypoint(function(event, direction) {
+            $(this).parent().toggleClass('sticky', direction === "down");
+            event.stopPropagation();
+        }); 
+		
+    </script>
+    <!--淘点金代码-->
+    <script type="text/javascript">
+    (function(win,doc){
+        var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+        if (!win.alimamatk_show) {
+            s.charset = "utf8";
+            s.async = true;
+            s.src = "http://a.alimama.cn/tkapi.js";
+            h.insertBefore(s, h.firstChild);
+        };
+        var o = {
+            pid: "{$setting['tb_api_pid']}",/*推广单元ID，用于区分不同的推广渠道*/
+            appkey: "{$setting['tb_api_key']}",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+            unid: "",/*自定义统计字段*/
+            type: "click" /* click 组件的入口标志 （使用click组件必设）*/
+        };
+        win.alimamatk_onload = win.alimamatk_onload || [];
+        win.alimamatk_onload.push(o);
+    })(window,document);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+
+<!-- 页脚 -->
+<div class="foot">
+    <div class="white_bg">
+        <div class="foot-con">
+            <div class="con-box-n clear">
+                <div class="app-side-box fl">
+                    <php>$ad=getAd('erweima',1,$adlist);$ad=$ad[0];if($ad){</php>
+                    <p class="app-show">                        
+                        <a href='{$ad.url}' {$ad['blank']?'target="_blank"':''}><img src="{$ad.pic_url}" style="width:90px;height:90px;"></a>
+                    </p>
+                    <p class="app-txt">{$ad.title}</p>
+                    <php>}</php>
+                </div>
+                <div class="con-left-info fl">
+                    <dl class="update">
+                        <dt>{$articleSort[0]['sort_name']}</dt>
+                        <?php $d0 = $article[$articleSort[0]['sort_id']];?>
+                        <volist name='d0' id='data'>
+                            <dd><a target="_blank" href="{:U('article/detail',array('aid'=>$data['aid']))}"><i></i>{:cutstr($data['title'],28)}</a></dd>
+                        </volist>
+                        
+                    </dl>
+                    <dl class="cooperation">
+                        <dt>{$articleSort[1]['sort_name']}</dt>
+                        <?php $d1 = $article[$articleSort[1]['sort_id']];?>
+                        <volist name='d1' id='data'>
+                        <dd><a target="_blank" href="{:U('article/detail',array('aid'=>$data['aid']))}"><i></i>{:cutstr($data['title'],28)}</a></dd>
+                        </volist>
+                    </dl>
+                    <dl class="cor-info">
+                        <dt>{$articleSort[2]['sort_name']}</dt>
+                        <?php $d2 = $article[$articleSort[2]['sort_id']];?>
+                        <volist name='d2' id='data'>
+                        <dd><a target="_blank" href="{:U('article/detail',array('aid'=>$data['aid']))}"><i></i>{:cutstr($data['title'],28)}</a></dd>
+                        </volist>
+                    </dl>
+                    <dl class="cor-info">
+                        <dt>{$articleSort[3]['sort_name']}</dt>
+                        <?php $d3 = $article[$articleSort[3]['sort_id']];?>
+                        <volist name='d3' id='data'>
+                        <dd><a target="_blank" href="{:U('article/detail',array('aid'=>$data['aid']))}"><i></i>{:cutstr($data['title'],28)}</a></dd>
+                        </volist>
+                    </dl>
+                </div>
+                <div class="con-menu fr">
+                    <php>if($setting['online_kefu']){</php>
+                        <a class="service-add fl" href="http://wpa.qq.com/msgrd?v=3&uin={$setting['online_kefu']}&site=qq&menu=yes" target="_top" rel="nofollow"></a>
+                    <php>}</php>
+                </div>
+            </div>            
+            <div class="links"><php>$ad=getAd('flink',99,$adlist)</php>
+                <span>友情链接：</span>
+                <div class="links_list_box">
+                    <ul style="margin-top: 0px;" class="links_list">
+                        <foreach name="ad" item="vo">
+                            <li><a href="{$vo.url}" <php>if($vo['blank']){</php>target='_blank'<php>}</php>>{$vo.title}</a></li>
+                        </foreach>
+                    </ul>
+                </div>
+            </div>
+          <!--  <p class="ft-company">{$setting['site_copyright']}</p> -->
+            <p class="ft-company">{$setting['site_icp']}</p>
+            <div class="logo">
+                <a rel="nofollow" target="_top" href="#">
+                    <img src="__TMPL__statics/images/r_315online.gif" border="0">
+                </a>
+                <a rel="nofollow" target="_top" href="#">
+                    <img src="__TMPL__statics/images/r_cnnic.gif" border="0">
+                </a>
+                <a rel="nofollow" target="_top" key="5492626c3b05a3da0fbd05fe" logo_size="124x47" logo_type="realname" href="#">
+                    <span style="display: none;" class="LOGO_aq_jsonp_wrap_" id="AQ_logo_span_init_1">
+                    </span>
+                    <img alt="安全联盟认证" style="border: medium none;" src="__TMPL__statics/images/sm_124x47.png" height="47" width="124">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none;" class="side_right fix">
+        <div class="con">
+            
+            <a target="_blank" class="trigger " style="" href="javascript:;">
+                <p>消费<br>
+                    保障</p>
+                <span><i class="sicon sicon-02"></i></span> </a>
+            
+            <a class="trigger go-top" href="javascript:;">
+                <p>回到<br>顶部</p>
+                <span><i class="sicon sicon-03"></i></span>
+            </a>
+    </div>
+</div>
+{:stripslashes($setting['site_tongji'])}
+

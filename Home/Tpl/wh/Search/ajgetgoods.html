@@ -1,0 +1,56 @@
+<volist name='goods' id='vo'>
+            <li>
+                <div class="list-good buy">
+                    <div class="good-pic">
+                        <a target="_blank" class="pic-img" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                            <img class="lazy good-pic" src="{$vo.pic_url}" alt="{$vo.title}" style="display: inline;">
+                        </a>
+                    </div>
+                    <h3 class="good-title">
+                        <a target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">{$vo.title}</a>
+                        <div style="display:none;" class="icon-all">
+                        </div>
+                    </h3>
+                    <div class="good-price">
+                        <span class="price-current">
+                            <em>￥</em>
+                            <php>if($vo['discount_price']>0){echo bcmul($vo['discount_price'], 1, 1);}else{echo bcmul($vo['price'], 1, 1);}</php>
+                        </span>
+                        <div class="btn buy m-buy">
+                            <a rel="nofollow" target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                                <eq name="vo.goods_type" value="tmall">
+                                    <em class="m-icon"></em>
+                                    <span>天猫</span>
+                                </eq>
+                                <eq name="vo.goods_type" value="taobao">
+                                    <em class="t-icon"></em>
+                                    <span>淘宝</span>
+                                </eq>
+                                <eq name="vo.goods_type" value="qugoumai">
+                                    <span>去购买</span>
+                                </eq>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- like -->
+                    <a href="javascript:;" onclick="favor({$vo['goods_id']})" title="加入收藏" class="J_favorite_btn y-like my-like active">
+                        <i class="like-ico l-active"><span class="heart_left"></span><span class="heart_right"></span></i>
+                    </a>
+                    <!-- end like -->
+                    <div style="display:block" class="box-hd">
+                    </div>
+                </div>
+            </li>
+        	</volist>
+            <script>
+            page = {$page};
+			$(".goods-list li").hover(
+				function(){
+				   //当鼠标放上去的时候,程序处理
+				   $(this).addClass("hover1 hover");
+				},
+				function(){
+				   //当鼠标离开的时候,程序处理
+				   $(this).removeClass("hover1 hover");
+				});
+            </script>

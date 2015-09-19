@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>搜索 - {$setting['site_name']}</title>
+    <meta name="keywords" content="{$setting['site_seo_keywords']}" />
+    <meta name="description" content="{$setting['site_seo_description']}">
+    <include file="Public:head" />
+    <link href="__TMPL__statics/css/index.css" rel="stylesheet">
+    <link href="__TMPL__statics/css/list.css" rel="stylesheet">
+</head>
+
+<body class="body-white">
+    <include file="Public:nav" />
+    <div class="main">
+    <h2 style="font-size:16px;">搜索词：{$keyword}</h2>
+    <div class="shaixuan">
+    	<div class="tiaojian">
+        	价格：
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>'','from'=>$shaixuan['from'],'discount'=>$shaixuan['discount']))}">
+            	<span <php>if($shaixuan['price']==''){</php>class='on'<php>}</php>>不限</span>
+            </a>
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>'asc','from'=>$shaixuan['from'],'discount'=>$shaixuan['discount']))}">
+            	<span <php>if($shaixuan['price']=='asc'){</php>class='on'<php>}</php>>从低到高</span>
+            </a>
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>'desc','from'=>$shaixuan['from'],'discount'=>$shaixuan['discount']))}">
+            	<span <php>if($shaixuan['price']=='desc'){</php>class='on'<php>}</php>>从高到低</span>
+            </a>
+        </div>
+        <div class="tiaojian">
+        	来源：
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>$shaixuan['price'],'from'=>'','discount'=>$shaixuan['discount']))}">
+            	<span <php>if($shaixuan['from']==''){</php>class='on'<php>}</php>>不限</span>
+            </a>
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>$shaixuan['price'],'from'=>'tmall','discount'=>$shaixuan['discount']))}">
+            	<span <php>if($shaixuan['from']=='tmall'){</php>class='on'<php>}</php>>天猫</span>
+            </a>
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>$shaixuan['price'],'from'=>'taobao','discount'=>$shaixuan['discount']))}">
+            	<span <php>if($shaixuan['from']=='taobao'){</php>class='on'<php>}</php>>淘宝</span>
+            </a>
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>$shaixuan['price'],'from'=>'qugoumai','discount'=>$shaixuan['discount']))}">
+            	<span <php>if($shaixuan['from']=='qugoumai'){</php>class='on'<php>}</php>>其他</span>
+            </a>
+        </div>
+        <div class="tiaojian">
+        	折扣：
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>$shaixuan['price'],'from'=>$shaixuan['from'],'discount'=>''))}">
+            	<span <php>if($shaixuan['discount']==''){</php>class='on'<php>}</php>>不限</span>
+            </a>
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>$shaixuan['price'],'from'=>$shaixuan['from'],'discount'=>'asc'))}">
+            	<span <php>if($shaixuan['discount']=='asc'){</php>class='on'<php>}</php>>从低到高</span>
+            </a>
+            <a href="{:U('search/index',array('keywords'=>$keyword,'price'=>$shaixuan['price'],'from'=>$shaixuan['from'],'discount'=>'desc'))}">
+            	<span <php>if($shaixuan['discount']=='desc'){</php>class='on'<php>}</php>>从高到低</span>
+            </a>
+        </div>
+        <div class="clear"></div>
+    </div>
+        <ul class="goods-list clear">
+            <volist name='goods' id='vo'>
+            <li>
+                <div class="list-good buy">
+                    <div class="good-pic">
+                        <a target="_blank" class="pic-img" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                            <img class="lazy good-pic" src="{$vo.pic_url}" alt="{$vo.title}" style="display: inline;">
+                        </a>
+                    </div>
+                    <h3 class="good-title">
+                        <a target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">{$vo.title}</a>
+                        <div style="display:none;" class="icon-all">
+                        </div>
+                    </h3>
+                    <div class="good-price">
+                        <span class="price-current">
+                            <em>￥</em>
+                            <php>if($vo['discount_price']>0){echo bcmul($vo['discount_price'], 1, 2);}else{echo bcmul($vo['price'], 1, 2);}</php>
+                        </span>
+                        <span class="des-other">
+                            <span class="price-old">
+                                <em>￥</em>
+                                <php>echo bcmul($vo['price'], 1, 2);</php>
+                            </span>
+                            <span class="discount">(
+                                <em>
+                                    <php>echo sprintf( "%.2f",$vo['discount_price']/$vo['price'])*10;</php>
+                                </em>折)
+                            </span>
+                        </span>
+                        <div class="btn buy m-buy">
+                            <a rel="nofollow" target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                                <eq name="vo.goods_type" value="tmall">
+                                    <em class="m-icon"></em>
+                                    <span>天猫</span>
+                                </eq>
+                                <eq name="vo.goods_type" value="taobao">
+                                    <em class="t-icon"></em>
+                                    <span>淘宝</span>
+                                </eq>
+                                <eq name="vo.goods_type" value="qugoumai">
+                                    <span>去购买</span>
+                                </eq>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- like -->
+                    <a href="javascript:;" onclick="favor({$vo['goods_id']})" title="加入收藏" class="J_favorite_btn y-like my-like active">
+                        <i class="like-ico l-active"><span class="heart_left"></span><span class="heart_right"></span></i>
+                    </a>
+                    <!-- end like -->
+                    <div style="display:block" class="box-hd">
+                    </div>
+                </div>
+            </li>
+        	</volist>
+        </ul>
+        <div class="pagination clear">
+        <div>
+        	<div class="col-md-12">
+            <button class="btn btn-danger" style="width:1200px" id="getmore"><php>if($totalPage>=2){</php>查看更多&gt;&gt;<php>}else{</php>下面就木有了，亲~<php>}</php></button>
+            </div>
+        </div>
+            
+        </div>
+    </div>
+    <include file="Public:footer" />
+    <include file="Public:scripts" />
+    <script>
+    $("img.lazy").lazyload({threshold:0,failure_limit:30,placeholder : "__TMPL__statics/images/blank.png",});
+    
+    $(".goods-list li").hover(
+    function(){
+       //当鼠标放上去的时候,程序处理
+       $(this).addClass("hover1 hover");
+    },
+    function(){
+       //当鼠标离开的时候,程序处理
+       $(this).removeClass("hover1 hover");
+    });
+	$(function(){
+	page=2;
+	totalPage = <php>echo $totalPage;</php>;
+	$("#getmore").click(function(){
+		if(page<=totalPage){
+			$(this).attr('disabled','disabled');
+			$(this).addClass('disabled');
+			$(this).html('正在努力获取中...');
+			keyword = "{$keyword}";
+			<php>if($shaixuan['price']){</php> var price="{$shaixuan['price']}"; <php>}else{</php>var price="";<php>}</php>
+			<php>if($shaixuan['from']){</php> var from="{$shaixuan['from']}"; <php>}else{</php>var from="";<php>}</php>
+			<php>if($shaixuan['discount']){</php> var discount="{$shaixuan['discount']}"; <php>}else{</php>var discount="";<php>}</php>
+			$.get('/index.php?m=search&a=index',{p:page,keywords:keyword,price:price,from:from,discount:discount},function(html){
+				$('.goods-list li:last').after(html);
+				if(page>totalPage){
+					$("#getmore").attr('disabled','disabled');
+					$("#getmore").addClass('disabled');
+					$("#getmore").html('下面就木有了，亲~');
+				}else{
+					$("#getmore").removeAttr('disabled');$("#getmore").removeClass('disabled');$("#getmore").html('查看更多&gt;&gt;');
+				}
+			});
+		}
+		
+	});
+	})
+
+</script>
+</body>
+
+</html>

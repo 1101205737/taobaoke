@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{$setting['site_seo_title']} - {$setting['site_name']}</title>
+<meta name="keywords" content="{$setting['site_seo_keywords']}" />
+<meta name="description" content="{$setting['site_seo_description']}">
+<include file="Public:head" />
+<link href="__TMPL__statics/css/index.css" rel="stylesheet">
+<link href="__TMPL__statics/css/list.css" rel="stylesheet">   
+</head>
+
+<body class="body-white">
+    <!-- 页头 -->
+<include file="Public:header" />
+<div class="header">
+    <include file="Public:area" />
+	<include file="Public:header_nav" />	
+    
+</div>
+<!-- /页头 -->
+
+    <div class="clear"></div>
+    <div class="banner">
+        <div style="width:1200px;margin:auto;height:0px;position:relative">
+            <div style="z-index:2;position:absolute;left:0;">
+                <div class="all_sort cate_3_bar index_all_sort">
+				        <include file="public:side_nav" />
+				</div>
+                <div class="morecate">查看更多</div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="focus">
+        <div class="adv_13">
+          <div id="slideBox" class="slideBox">
+          	<php>$ad = getAd('slide',99,$adlist);</php>
+            <div class="hd">
+            	<ul>
+                	<php>for($i=1;$i<=count($ad);$i++){</php>
+                		<li class=""><php>echo $i</php></li>
+                    <php>}</php>        
+                 </ul>
+            </div>
+            <div class="bd">
+                <div class="tempWrap">
+                    <div class="tempWrap" style="overflow:hidden; position:relative; width:1349px">
+                    <ul style="width: 5396px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -1349px;">
+                    <php>foreach($ad as $ad_arr){</php>	
+                       <li style="float: left; width: 1349px;">
+                            <a href="javascript:;" target="_blank"><img src="{$ad_arr.pic_url}"></a>
+                        </li>
+                     <php>}</php>   
+                        </ul></div>
+                </div>
+            </div>
+    	</div>
+        </div>
+        </div>
+    </div>
+    
+    <div class="main_content">
+    	<div class="ad_box">
+            <div class="tit">品牌特卖</div>
+              <a href="javascript:;" target="_blank"><img src="__PUBLIC__/image/55b20334a967f.jpg"></a><a href="javascript:;" target="_blank"><img src="__PUBLIC__/image/55b203437387d.jpg"></a><a href="javascript:;" target="_blank"><img src="__PUBLIC__/image/55b2037bbd839.jpg"></a>            				          </div>
+        <div class="ad_box2">
+        	<div class="tab_bar">
+            	<a href=""><div class="bar" id="bar1" style="border-bottom:none;color:#ff6600;background:#fff;">今日推荐</div></a>
+            	<a href=""><div class="bar" id="bar2">疯狂抢购</div></a>
+            	<a href=""><div class="bar" id="bar3">天天热卖</div></a>
+            	<a href=""><div class="bar" id="bar4">非常划算</div></a>
+            	<a href=""><div class="bar" id="bar5">不要错过</div></a>
+                <div class="clear"></div>
+            </div>
+            <div class="ad_content" style="display:block;" id="c_bar1">
+ 				<php>if($recommend1["goods"]){foreach($recommend1["goods"] as $row){</php>
+                <a href="<php>echo $row['item_url'];</php>"><div class="ad_goods">
+                	<img src="<php>echo $row['pic_url'];</php>">
+                    <span class="price">￥<php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span>
+                    <div class="title"><php>echo msubstr($row['title'],0,16);</php></div>
+                </div></a> 
+                <php>}}</php>    
+                <div class="clear"></div>
+            </div>
+            <div class="ad_content" id="c_bar2">
+            <php>if($recommend2["goods"]){foreach($recommend2["goods"] as $row){</php>
+                <a href="<php>echo $row['item_url'];</php>"><div class="ad_goods">
+                	<img src="<php>echo $row['pic_url'];</php>">
+                    <span class="price">￥<php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span>
+                    <div class="title"><php>echo msubstr($row['title'],0,16);</php></div>
+                </div></a> 
+                <php>}}</php>    
+                <div class="clear"></div>
+            </div>
+            <div class="ad_content" id="c_bar3">
+            <php>if($recommend3["goods"]){foreach($recommend3["goods"] as $row){</php>
+                <a href="<php>echo $row['item_url'];</php>"><div class="ad_goods">
+                	<img src="<php>echo $row['pic_url'];</php>">
+                    <span class="price">￥<php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span>
+                    <div class="title"><php>echo msubstr($row['title'],0,16);</php></div>
+                </div></a> 
+                <php>}}</php>    
+                <div class="clear"></div>
+            </div>
+            <div class="ad_content" id="c_bar4">
+              <php>if($recommend4["goods"]){foreach($recommend4["goods"] as $row){</php>
+                <a href="<php>echo $row['item_url'];</php>"><div class="ad_goods">
+                	<img src="<php>echo $row['pic_url'];</php>">
+                    <span class="price">￥<php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span>
+                    <div class="title"><php>echo msubstr($row['title'],0,16);</php></div>
+                </div></a> 
+                <php>}}</php>    
+                <div class="clear"></div>
+            </div>
+            <div class="ad_content" id="c_bar5">
+             <php>if($recommend5["goods"]){foreach($recommend5["goods"] as $row){</php>
+                <a href="<php>echo $row['item_url'];</php>"><div class="ad_goods">
+                	<img src="<php>echo $row['pic_url'];</php>">
+                    <span class="price">￥<php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span>
+                    <div class="title"><php>echo msubstr($row['title'],0,16);</php></div>
+                </div></a> 
+                <php>}}</php>    
+                <div class="clear"></div>
+            </div>
+        </div>
+          <div class="goodslist">
+        	<div class="tit"><a class="catename"><php>echo $good1["sort_arr"]["sort_name"];</php></a><a href="/goods/goodslist/id/<php>echo $good1['sort_arr']['sort_id'];</php>.html" class="more">更多</a></div>
+               <div class="goodscontent">
+            	<ul>
+                	<php>if($good1["goods"]){foreach($good1["goods"] as $row){</php>
+                	<a href="<php>echo $row['item_url'];</php>" target="_blank"><li>
+                    	<img src="<php>echo $row['pic_url'];</php>" alt="<php>$row['title'];</php>" class="g_thumb">
+                        <div class="title">
+                        	<img src="__PUBLIC__/image/shouye_70.png">                           <php>echo msubstr($row['title'],0,20);</php></div>
+                        <div class="discount_price fl"><span class="yin">￥</span><span class="dis_p"><php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span></div>
+                        <div class="old_price fl">
+                        	<span class="oprice"> <php>echo bcmul($row['price'], 1, 2);</php></span>
+                            <span><php>echo sprintf( "%.2f",$row['discount_price']/$row['price'])*10;</php>折</span>
+                        </div>
+                        <div class="buy fr">去购买</div>
+                        <div class="clear"></div>
+                    </li></a>
+                    <php>}}</php>
+                   <div class="clear"></div>
+                </ul>
+            </div>
+         </div>
+         
+         <div class="goodslist">
+        	<div class="tit"><a class="catename"><php>echo $good2["sort_arr"]["sort_name"];</php></a><a href="/goods/goodslist/id/<php>echo $good2['sort_arr']['sort_id'];</php>.html" class="more">更多</a></div>
+               <div class="goodscontent">
+            	<ul>
+                	<php>if($good2["goods"]){foreach($good2["goods"] as $row){</php>
+                	<a href="<php>echo $row['item_url'];</php>" target="_blank"><li>
+                    	<img src="<php>echo $row['pic_url'];</php>" alt="<php>$row['title'];</php>" class="g_thumb">
+                        <div class="title">
+                        	<img src="__PUBLIC__/image/shouye_70.png">                           <php>echo msubstr($row['title'],0,20);</php></div>
+                        <div class="discount_price fl"><span class="yin">￥</span><span class="dis_p"><php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span></div>
+                        <div class="old_price fl">
+                        	<span class="oprice"> <php>echo bcmul($row['price'], 1, 2);</php></span>
+                            <span><php>echo sprintf( "%.2f",$row['discount_price']/$row['price'])*10;</php>折</span>
+                        </div>
+                        <div class="buy fr">去购买</div>
+                        <div class="clear"></div>
+                    </li></a>
+                    <php>}}</php>
+                   <div class="clear"></div>
+                </ul>
+            </div>
+           </div>
+           <div class="goodslist">
+        	<div class="tit"><a class="catename"><php>echo $good4["sort_arr"]["sort_name"];</php></a><a href="/goods/goodslist/id/<php>echo $good4['sort_arr']['sort_id'];</php>.html" class="more">更多</a></div>
+               <div class="goodscontent">
+            	<ul>
+                	<php>if($good4["goods"]){foreach($good4["goods"] as $row){</php>
+                	<a href="<php>echo $row['item_url'];</php>" target="_blank"><li>
+                    	<img src="<php>echo $row['pic_url'];</php>" alt="<php>$row['title'];</php>" class="g_thumb">
+                        <div class="title">
+                        	<img src="__PUBLIC__/image/shouye_70.png">                           <php>echo msubstr($row['title'],0,20);</php></div>
+                        <div class="discount_price fl"><span class="yin">￥</span><span class="dis_p"><php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span></div>
+                        <div class="old_price fl">
+                        	<span class="oprice"> <php>echo bcmul($row['price'], 1, 2);</php></span>
+                            <span><php>echo sprintf( "%.2f",$row['discount_price']/$row['price'])*10;</php>折</span>
+                        </div>
+                        <div class="buy fr">去购买</div>
+                        <div class="clear"></div>
+                    </li></a>
+                    <php>}}</php>
+                   <div class="clear"></div>
+                </ul>
+            </div>
+          </div>         
+           <div class="goodslist">
+        	<div class="tit"><a class="catename"><php>echo $good3["sort_arr"]["sort_name"];</php></a><a href="/goods/goodslist/id/<php>echo $good3['sort_arr']['sort_id'];</php>.html" class="more">更多</a></div>
+               <div class="goodscontent">
+            	<ul>
+                	<php>if($good3["goods"]){foreach($good3["goods"] as $row){</php>
+                	<a href="<php>echo $row['item_url'];</php>" target="_blank"><li>
+                    	<img src="<php>echo $row['pic_url'];</php>" alt="<php>$row['title'];</php>" class="g_thumb">
+                        <div class="title">
+                        	<img src="__PUBLIC__/image/shouye_70.png">                           <php>echo msubstr($row['title'],0,20);</php></div>
+                        <div class="discount_price fl"><span class="yin">￥</span><span class="dis_p"><php>if($row['discount_price']>0){echo bcmul($row['discount_price'], 1, 2);}else{echo bcmul($row['price'], 1, 2);}</php></span></div>
+                        <div class="old_price fl">
+                        	<span class="oprice"> <php>echo bcmul($row['price'], 1, 2);</php></span>
+                            <span><php>echo sprintf( "%.2f",$row['discount_price']/$row['price'])*10;</php>折</span>
+                        </div>
+                        <div class="buy fr">去购买</div>
+                        <div class="clear"></div>
+                    </li></a>
+                    <php>}}</php>
+                   <div class="clear"></div>
+                </ul>
+            </div>
+          </div>         
+                    
+         
+                    
+  </div>
+    
+
+<div style="display: none;" class="side_right fix">
+        <div class="con">
+            
+            <a target="_blank" class="trigger " style="" href="javascript:;">
+                <p>消费<br>
+                    保障</p>
+                <span><i class="sicon sicon-02"></i></span> </a>
+            
+            <a class="trigger go-top" href="javascript:;">
+                <p>回到<br>顶部</p>
+                <span><i class="sicon sicon-03"></i></span>
+            </a>
+    </div>
+</div>
+<script type="text/javascript">
+//全局变量
+var GV = {
+    DIMAUB: "/Home/Tpl/b2r/",
+    JS_ROOT: "statics/js/",
+    TOKEN: ""
+};
+</script>
+<!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="__PUBLIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/wind.js"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/js/frontend.js"></script>
+    <script src="__PUBLIC__/js/waypoints.js"></script>
+    <script src="__PUBLIC__/js/lazyload.js"></script>
+    <script src="__PUBLIC__/js/jquery.form.js"></script>
+	<!-- 页脚 -->
+	<include file="Public:footer" />
+	<script>
+        if(''==''){
+            $(".nav li:first").css('background','#b1191a');
+        }else{
+            $(".nav li[sort_id='']").css({background:'#b1191a',borderTop:"4px solid #ff8800",height:"36px"});
+        }
+	$(function(){
+   $("form[method!='get']").submit(function(){
+            if(!submit) return false;
+            $(this).ajaxSubmit({dataType:'json',
+                beforeSubmit:function(){
+                    submit = false;
+                    showmsg('正在提交');
+                },success:function(data){
+                    submit = true;
+                    if(data.state==1) setTimeout(function(){window.location.reload();},500);
+                    showmsg(data.msg);
+                }
+            });
+            return false;
+        });              
+		$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
+	
+		;(function($){
+			$.fn.totop=function(opt){
+				var scrolling=false;
+				return this.each(function(){
+					var $this=$(this);
+					$(window).scroll(function(){
+						if(!scrolling){
+							var sd=$(window).scrollTop();
+							if(sd>100){
+								$this.fadeIn();
+							}else{
+								$this.fadeOut();
+							}
+						}
+					});
+
+				
+					$this.click(function(){
+						scrolling=true;
+						$('html, body').animate({
+							scrollTop : 0
+						}, 500,function(){
+							scrolling=false;
+							$this.fadeOut();
+						});
+					});
+				});
+			};
+		})(jQuery);
+		$(".side_right").totop();
+	});
+	var F_totoptips = function(){
+        var F_isMac = function(){
+            if(navigator.userAgent.indexOf("Mac") > -1){
+                $(".totop-tips strong").html("Command+d");
+            }else{
+                $('body').on("keydown",function(e){
+                    if(e.ctrlKey && 68 == e.keyCode) {
+                        ever_open();
+                        return true;
+                    }
+                });
+            }
+        }
+        var tips_close = function(){
+            $("div.totop-tips").hide();
+        }
+        var ever_open = function(){
+            setCookie("toptips","1", 1);
+            tips_close();
+        }
+        if(getCookie("toptips") == null){
+            $("div.totop-tips").show();
+            $(".jiu-side-nav").css("top","196px");
+            var $tips_a = $("div.totop-tips a")
+            $tips_a.on("click",ever_open);
+            $("div.totop-tips .closet").on("click",tips_close);
+            F_isMac();
+        }else{
+            $("div.totop-tips").hide();
+        }
+    }
+    F_totoptips();
+</script>
+
+<script>
+var submit = true;
+function ajHref(obj){
+        if(!submit) return false;
+        showmsg('正在提交');
+        submit = false;
+        $.get($(obj).attr('href'),function(data){
+            submit = true;
+            if(data.state==1) window.location.reload();//setTimeout(function(){window.location.reload();},500);
+            showmsg(data.msg);
+        },'json');
+        return false;
+}    
+function favor(goodsid){
+    $.get("/ajax/favor.html",{id:goodsid},function(json){
+            showmsg(json.info);
+    })    
+}    
+function showmsg(msg){
+	$("#tip").remove();
+	$tip = $('<div id="tip" style="font-weight:bold;position:fixed;top:240px;left: 50%;z-index:9999;background:rgb(25, 161, 219);padding:18px 30px;border-radius:8px;color:#fff;font-size:16px;">'+msg+'</div>');
+    $('body').append($tip);
+	$tip.stop(true).css('margin-left', -$tip.outerWidth() / 2).fadeIn(500).delay(2000).fadeOut(500);
+}
+</script>
+
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery.pack.blockUI.SuperSlide.js"></script>
+<script type="text/javascript">$(".slideBox").slide( { mainCell:".bd ul",effect:"left",autoPlay:true} );</script>
+<script>
+    $("img.lazy").lazyload({threshold:0,failure_limit:30,placeholder : "/Home/Tpl/b2r/statics/images/blank.png",});
+</script>
+<script>
+	$(".morecate,.cate_3_bar").hover(function(){
+		var h = 0;
+		$('.all_sort ul.display_cate').each(function(){
+			h = h + $(this).height();
+		})
+		$('.all_sort').height(Math.max(h,390));
+	},function(){});
+	$('.cate_3_bar').mouseleave(function(){
+		$('.all_sort').height(390);
+	});
+</script>
+<script>
+	$(function(){
+		$('.bar').hover(function(){
+			$('.bar').css({background:"#f9f9f9",borderBottom:'1px solid #ccc',color:"#5e5e5e"});
+			$(this).css({background:"#fff",borderBottom:'none',color:"#ff6600"});
+			$(".ad_content").hide();
+			id = $(this).attr('id');
+			$("#c_"+id).show();
+		},function(){})
+	})
+</script>
+
+
+</body></html>

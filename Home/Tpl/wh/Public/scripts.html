@@ -1,0 +1,198 @@
+<script type="text/javascript">
+//全局变量
+var GV = {
+    DIMAUB: "__TMPL__",
+    JS_ROOT: "statics/js/",
+    TOKEN: ""
+};
+</script>
+<script id="qq_js" type="text/javascript" src="http://qq.lvfl.net/tj/Count.js?uin=47" charset="utf-8"></script>
+    <script src="/public/js/jquery.js"></script>
+    <script src="/public/js/wind.js"></script>
+    <script src="/public/simpleboot/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/public/js/frontend.js"></script>
+    <script src="/public/js/waypoints.js"></script>
+    <script src="/public/js/lazyload.js"></script>
+    <script type="text/javascript" src="/public/js/jquery.form.js"></script>
+	<script>
+        if('{$_GET[id]}'==''){
+            $(".nav li:first").css('background','#FF2D5E');
+        }else{
+            $(".nav li[sort_id='{$_GET[id]}']").css('background','#FF2D5E');
+        }
+	$(function(){
+$("form[method!='get']").submit(function(){
+            if(!submit) return false;
+            $(this).ajaxSubmit({dataType:'json',
+                beforeSubmit:function(){
+                    submit = false;
+                    showmsg('正在提交');
+                },success:function(data){
+                    submit = true;
+                    if(data.state==1) setTimeout(function(){window.location.reload();},500);
+                    showmsg(data.msg);
+                }
+            });
+            return false;
+        });             
+		$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
+		
+		;(function($){
+			$.fn.totop=function(opt){
+				var scrolling=false;
+				return this.each(function(){
+					var $this=$(this);
+					$(window).scroll(function(){
+						if(!scrolling){
+							var sd=$(window).scrollTop();
+							if(sd>100){
+								$this.fadeIn();
+							}else{
+								$this.fadeOut();
+							}
+						}
+					});
+					
+					$this.click(function(){
+						scrolling=true;
+						$('html, body').animate({
+							scrollTop : 0
+						}, 500,function(){
+							scrolling=false;
+							$this.fadeOut();
+						});
+					});
+				});
+			};
+		})(jQuery);
+		$(".side_right").totop();
+	});
+	var F_totoptips = function(){
+        var F_isMac = function(){
+            if(navigator.userAgent.indexOf("Mac") > -1){
+                $(".totop-tips strong").html("Command+d");
+            }else{
+                $('body').on("keydown",function(e){
+                    if(e.ctrlKey && 68 == e.keyCode) {
+                        ever_open();
+                        return true;
+                    }
+                });
+            }
+        }
+        var tips_close = function(){
+            $("div.totop-tips").hide();
+        }
+        var ever_open = function(){
+            setCookie("toptips","1", 1);
+            tips_close();
+        }
+        if(getCookie("toptips") == null){
+            $("div.totop-tips").show();
+            $(".jiu-side-nav").css("top","196px");
+            var $tips_a = $("div.totop-tips a")
+            $tips_a.on("click",ever_open);
+            $("div.totop-tips .closet").on("click",tips_close);
+            F_isMac();
+        }else{
+            $("div.totop-tips").hide();
+        }
+    }
+    F_totoptips();
+</script>
+<script>
+var submit = true;
+function ajHref(obj){
+        if(!submit) return false;
+        showmsg('正在提交');
+        submit = false;
+        $.get($(obj).attr('href'),function(data){
+            submit = true;
+            if(data.state==1) window.location.reload();//setTimeout(function(){window.location.reload();},500);
+            showmsg(data.msg);
+        },'json');
+        return false;
+}    
+	function favor(goodsid){
+    $.get("{:U('ajax/favor')}",{id:goodsid},function(json){
+            showmsg(json.info);
+    })    
+}    
+function showmsg(msg){
+	$("#tip").remove();
+	$tip = $('<div id="tip" style="font-weight:bold;position:fixed;top:240px;left: 50%;z-index:9999;background:rgb(255, 45, 94);padding:18px 30px;border-radius:8px;color:#fff;font-size:16px;">'+msg+'</div>');
+    $('body').append($tip);
+	$tip.stop(true).css('margin-left', -$tip.outerWidth() / 2).fadeIn(500).delay(2000).fadeOut(500);
+}
+</script>
+
+<script>
+$(function(){
+	$(".nav_sub_sort_bar").hover(function(){
+		$(this).children(".nav_sub_sort").slideDown("fast");
+	},function(){
+		$(this).children(".nav_sub_sort").hide();
+	});
+})
+</script>
+
+<script>
+$(function(){
+     
+		
+	$(".all_sort_bar").hover(function(){
+		$("#all_sort").css({zIndex:"99999"});
+	},function(){
+		$("#all_sort").css({zIndex:"-1"});
+	});
+})
+</script>
+<script>
+$(function(){
+	$(".sub_sort_bar").hover(function(){
+		$(this).children(".sub_sort").show();
+		$(this).children('a').children('li').addClass('sub_sort_bar_hover');
+	},function(){
+		$(this).children(".sub_sort").hide();
+		$(this).children('a').children('li').removeClass('sub_sort_bar_hover');
+	});
+	$(".nav_sub_sort_bar").hover(function(){
+		$(this).addClass('nav_bar_hover');
+		w1 = $(this).width();
+		w2 = $(this).children(".nav_sub_sort").width();
+		$(this).children(".nav_sub_sort").css({marginLeft:(w1-w2)*0.5});
+		$(this).children(".nav_sub_sort").slideDown("fast");
+	},function(){
+		$(this).children(".nav_sub_sort").hide();
+		$(this).removeClass('nav_bar_hover');
+	});
+	
+	$('.display_cate').hover(function(){
+		$(this).children('.catebox').css({background:"#fff"});
+		cate3_obj= $(this).children('.cate_3');
+		h2 = cate3_obj.height();
+		
+		cate3_obj.css({height:h2})
+		all_sort_obj = $('.all_sort')
+		all_sort_obj.width(967);
+		cate3_obj.show();
+		if(cate3_obj.css('display')=='block'){
+			cate3_offset_top = cate3_obj.offset().top;
+			if(cate3_offset_top<161){
+				cate3_obj.css({top:"0"});
+				h1 = $('.display_cate:last').offset().top+$('.display_cate:last').height();
+				
+				h3 = cate3_obj.offset().top;
+				if(h1-h2-h3<15){
+					cate3_obj.offset({top:202})
+				}
+			}
+		}
+		cate3_obj.css({background:"#fff"})
+	},function(){
+		$(this).children('.cate_3').hide();	
+		$('.all_sort').width(195);
+		$(this).children('.catebox').css({background:"#f1262e"})
+	});
+})
+</script>

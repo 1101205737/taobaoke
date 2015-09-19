@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+#artlist {padding:5px 15px;border:1px solid #ccc;background:#fff;}
+#artlist li{line-height:40px;font-size:14px;border-bottom:1px dashed #ccc;padding-left:15px;}
+#artlist li a{color:#404040;}
+#artlist li span{font-size:11px;color:#878787;}
+.pagination {
+    text-align: center;
+}
+.pagination ul li {
+  display: inline;
+  list-style-type: none;
+  float: left;
+}
+.pagination ul li.active a,.pagination li:hover a:hover{background:#c81623;}

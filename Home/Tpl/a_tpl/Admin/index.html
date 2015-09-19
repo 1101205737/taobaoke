@@ -1,0 +1,58 @@
+<include file="common_admin:header" />
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {}
+    </script>
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <include file="common_admin:left" />
+        <div class="main-content">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="page-header">
+                            <h1>
+                                服务器信息
+                                <small>
+                                    <i class="icon-double-angle-right"></i>
+                                </small>
+                            </h1>
+                        </div>
+                        <div class="profile-user-info profile-user-info-striped">
+                            <volist name="serverInfo" id="data">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> {$key} </div>
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="username">{$data}</span>
+                                    </div>
+                                </div>
+                            </volist>
+                        </div>
+                        <br>
+                        <div class="page-header">
+                            <h1>
+                                开发团队
+                                <small>
+                                    <i class="icon-double-angle-right"></i>
+                                </small>
+                            </h1>
+                        </div>
+                        <div class="col-sm-12">
+                            <h4>小草CMS团队成立于 2009元，6年时间专注企业网站、淘宝客程序开发，行业知名度名列前茅。小草团队目前拥有6名PHP开发人员，5位服务专员。立志打造导购网站程序知名品牌。</h4>
+                        </div>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container-inner -->
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+<include file="common_admin:footer" />

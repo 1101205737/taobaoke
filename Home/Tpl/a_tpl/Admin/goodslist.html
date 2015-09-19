@@ -1,0 +1,213 @@
+<include file="common_admin:header" />
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <include file="common_admin:left" />
+        <div class="main-content">
+            <include file="common_admin:nav" />
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form action="index.php" method="get" >
+                            {:setParam(array('m'=>'admin',a=>'goodslist'))}
+                            <div class="row">
+                                    <div class='col-sm-2'>
+                                        <select class="form-control" name='sort_id'>
+                                            <option value="0">全部栏目</option>
+                                            {$goodsSort}
+                                        </select>
+                                        <script>
+                                            $("select[name='sort_id'] option[value='{$sort_id}']").attr('selected', 'selected');
+                                        </script>
+                                    </div>
+                                    <div class='col-sm-2'>
+                                        <input class="form-control" placeholder=商品标题 type="text" name='title' value='{$title}'  />
+                                    </div>
+                                    <div class='col-sm-2'>
+                                        <input class="form-control" placeholder=添加人 type="text" name='add_uname' value='{$add_uname}'  />
+                                    </div>
+                                    <div class='col-sm-2'>                                        
+                                            <button type="submit" class="btn btn-purple btn-sm">
+                                                搜索
+                                                <i class="icon-search icon-on-right bigger-110"></i>
+                                            </button>
+                                    </div>
+                                            
+                            </div>
+                            <div class="space-6"></div>
+                        </form>
+                    </div>          
+
+
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->                        
+                        <form action="{:U('admin/goodsList',array('op'=>'order'))}" method="post">                            
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr class="color428bca">
+                                            <th width="50">排序</th>
+                                            <th>商品名称</th>
+                                            <th>商品类型</th>
+                                            <th>折扣价(元)</th>
+                                            <th>原价格(元)</th>
+                                            <th>添加人</th>
+                                            <th>状态</th>
+                                            <th>添加时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <php>if($goodsList){</php>
+                                    <volist name="goodsList" id="data">
+                                        <tr class="pointer even" title="">
+                                            <td data_id="{$data['goods_id']}" style=""><input type="text" name="order_{$data['goods_id']}" value="{$data['order']}" style="width:30px;padding:0 5px;margin:0"/></td>
+                                            <td><a href="{$data['item_url']}" target='_blank'>{$data['title']}</a></td>
+                                            <td>{$data['goods_type']}</td>
+                                            <td>{$data['discount_price']}</td>
+                                            <td>{$data['price']}</td>
+                                            <td>{$data['add_uname']}</td>
+                                            <td><a id="" onclick="return ajHref(this);" href="{:U('admin/goodslist',array('op'=>'state','goods_id'=>$data['goods_id']))}" title="">{$data['state']?'<font color="green">上架</font>':'<font color="red">下架</font>'}</a></td>
+                                            <td>{:date('Y-m-d H:i:s',$data['ctime'])}</td>
+                                            <td> 
+                                                <a target="_blank" href='http://pub.alimama.com/myunion.htm?spm=a2320.7388781.a214tr8.d006.IyDOZN#!/promo/self/items?q={:urlencode($data[item_url])}'>查看</a>
+                                                |
+                                                <a id="" href="{:U('admin/addgoods',array('goods_id'=>$data['goods_id']))}" title="">编辑</a>
+                                                |
+                                                <a id="" onclick="if(confirm('确定删除')){return ajHref(this);};return false;" href="{:U('admin/goodsList',array('op'=>'del','goods_id'=>$data['goods_id']))}" title="删除">删除</a>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class='col-sm-4'>
+                                        <div class="row">
+                                            <button class="col-sm-2 btn  btn-success" type="submit" name="btSave" value="更新">                                            
+                                            排序
+                                            </button>
+                                            <button onclick="$('tbody tr td').attr('style','background:orange');" class="col-sm-2 btn  btn-warning" type="button" value="全选">
+                                            全选
+                                            </button>
+                                            <button onclick="deletes()" class="col-sm-2 btn  btn-danger" type="button" value="删除">
+                                            删除
+                                            </button>
+                                            <button onclick="state(1)" class="col-sm-2 btn  btn-purple" type="button" value="删除">
+                                            上架
+                                            </button>
+                                            <button onclick="state(0)" class="col-sm-2 btn  btn-inverse" type="button" value="删除">
+                                            下架
+                                            </button>
+                                        </div>                                        
+                                    </div>
+                                                                        
+                                    <php>if($page){</php>
+                                    <div class="col-sm-8 ">
+                                        <ul class='pagination pull-right'>{$page}</ul>
+                                    </div> 
+                                </div>
+
+
+                                <php>}</php>  
+
+                                <php>}else{</php>
+                                <tr><td colspan="8" class="empty"><span class="empty"><i>没有找到数据.</i></span></td></tr>
+                                </tbody>
+                                </table>
+
+                                <php>}</php>
+                            </div>
+                        </form>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container-inner -->
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+    <style>
+        .orange{background:orange;}
+    </style>
+<script type="text/javascript">
+function state(state){
+    if(confirm(state==1?'确定批量上架':'确定批量下架')){
+        var ids = '';
+        $('tbody tr').each(function(){
+            var data_id = $(this).find('td:first[style!=""]').attr('data_id')
+            if(data_id!=undefined){
+                ids +=data_id+':';
+            }
+        })
+        if(!submit) return false;
+        showmsg('正在提交');
+        submit = false;
+        $.get("index.php?m=admin&a=goodslist&op=state&state="+state+"&goods_id="+ids,function(data){
+            submit = true;
+            if(data.state==1) window.location.reload();//setTimeout(function(){window.location.reload();},500);
+            showmsg(data.msg);
+        },'json');
+        return false;
+    }    
+}
+function deletes(){
+    if(confirm('确定删除')){
+        var ids = '';
+        $('tbody tr').each(function(){
+            var data_id = $(this).find('td:first[style!=""]').attr('data_id')
+            if(data_id!=undefined){
+                ids +=data_id+':';
+            }
+        })
+        if(!submit) return false;
+        showmsg('正在提交');
+        submit = false;
+        $.get("index.php?m=admin&a=goodslist&op=del&goods_id="+ids,function(data){
+            submit = true;
+            if(data.state==1) window.location.reload();//setTimeout(function(){window.location.reload();},500);
+            showmsg(data.msg);
+        },'json');
+        return false;
+    }    
+}    
+    $(function(){
+        $("tbody tr").click(function(){
+            var obj = $(this);
+            if(obj.find('td:first').attr('style')==''){
+                obj.find('td').attr('style','background:orange');
+            }else{
+                obj.find('td').attr('style','');
+            }
+        });
+    });
+    (function(win,doc){
+        var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+        if (!win.alimamatk_show) {
+            s.charset = "utf8";
+            s.async = true;
+            s.src = "http://a.alimama.cn/tkapi.js";
+            h.insertBefore(s, h.firstChild);
+        };
+        var o = {
+            pid: "mm_43412205_9948295_33168978",/*推广单元ID，用于区分不同的推广渠道*/
+            appkey: "23189880",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+            unid: "",/*自定义统计字段*/
+            type: "click" /* click 组件的入口标志 （使用click组件必设）*/
+        };
+        win.alimamatk_onload = win.alimamatk_onload || [];
+        win.alimamatk_onload.push(o);
+    })(window,document);
+</script>
+</div>
+<include file="common_admin:footer" />

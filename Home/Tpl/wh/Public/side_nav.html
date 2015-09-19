@@ -1,0 +1,22 @@
+                                	<php>$allsort = IndexModel::I()->getAllSort();
+							//print_r($allsort);
+							//exit;
+							foreach($allsort["allsort"] as $key=>$row){
+
+        					</php>
+                                 <ul class="display_cate cate_3_bar">
+                                      <li class="catebox cate_3_bar">
+                                            <span class="top_cate"><a href="/goods/goodslist/id/<php>echo $row['sort_id'];</php>.html" target="_blank"><php>echo $row["sort_name"];</php></a></span>
+                                                <ul>
+                                                <php>if($allsort["subsort"][$row["sort_id"]]){
+                                                    foreach($allsort["subsort"][$row["sort_id"]] as $sort_arr){
+                                                </php>
+                                                <li class="sub_cate"><a href="/goods/goodslist/id/<php>echo $sort_arr['sort_id'];</php>.html" target="_blank"><php>echo $sort_arr["sort_name"];</php></a></li>
+                                                <php>}}</php>
+                                                    
+                                                 <div class="clear"></div>
+                                                </ul>
+                                     </li>
+        
+                                    </ul>
+                                    <php>}</php>

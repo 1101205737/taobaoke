@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$setting['site_seo_title']} - {$setting['site_name']}</title>
+        <meta name="keywords" content="{$setting['site_seo_keywords']}" />
+    	<meta name="description" content="{$setting['site_seo_description']}">
+    <include file="Public:head" />
+</head>
+<body class="body-white">
+<include file="Public:nav" />
+<div class="container tc-main">
+    <div class="row">
+        <div class="span2">
+            <include file="Public:usernav"/>
+        </div>
+        <div class="span10">
+            <div class="tabs">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#one" data-toggle="tab"><i class="fa fa-list-alt"></i> 修改收货地址</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="one">
+                        <form class="form-horizontal J_ajaxForm" action="{:U('member/address')}" method="post">
+                            {:setParam(array('op'=>'do'))}
+                            <div class="control-group">
+                                <label class="control-label" for="">真实姓名</label>
+                                <div class="controls">
+                                    <input type="text" class="span7" name='realname' value="{$user['device_token']['realname']}">
+                                </div>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label" for="">手机号码</label>
+                                <div class="controls">
+                                    <input type="text" class="span7" name='mobile' value="{$user['mobile']}">
+                                </div>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label" for="">收货地址</label>
+                                <div class="controls">
+                                    <input type="text" class="span7" name='address' value="{$user['device_token']['address']}">
+                                </div>
+                            </div>                                                        
+                             
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button type="submit" class="btn">保存</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>							
+            </div>
+        </div>
+    </div>
+</div>
+<!--主体 start-->
+<!--主体 end-->
+<include file="Public:footer" />
+<include file="Public:scripts" />
+<script src="/public/js/slippry.min.js"></script>
+<script>
+</script>
+</body>
+</html>

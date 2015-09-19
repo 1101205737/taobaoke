@@ -1,0 +1,64 @@
+<volist name='goods' id='vo'>
+    <li>
+        <div class="list-good buy">
+            <div class="good-pic">
+                <php>if($vo['goods_id']){</php>
+                <a target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                    <php>}else{</php>
+                    <a target="_blank" biz-itemid="{$vo.num_iid}" isconvert=1 href="{$vo.item_url}">    
+                        <php>}</php>
+                        <img class="lazy good-pic" data-original="{$vo.pic_url}" src="__TMPL__statics/images/blank.png" alt="{$vo.title}" style="display: inline;">
+                    </a>
+            </div>
+            <h3 class="good-title">
+                <php>if($vo['goods_id']){</php>
+                <a target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">{$vo.title}</a>
+                <php>}else{</php>
+                <a target="_blank" biz-itemid="{$vo.num_iid}" isconvert=1 href="{$vo.item_url}">{$vo.title}</a>
+                <php>}</php>
+                <div style="display:none;" class="icon-all">
+                </div>
+            </h3>
+            <div class="good-price">
+                <span class="price-current">
+                    <em>￥</em>
+                    <php>if($vo['discount_price']>0){echo bcmul($vo['discount_price'], 1, 1);}else{echo bcmul($vo['price'], 1, 1);}</php>
+                </span>
+                <div class="btn buy m-buy">
+                    <a rel="nofollow" target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                        <eq name="vo.goods_type" value="tmall">
+                        <em class="m-icon"></em>
+                        <span>天猫</span>
+                        </eq>
+                        <eq name="vo.goods_type" value="taobao">
+                        <em class="t-icon"></em>
+                        <span>淘宝</span>
+                        </eq>
+                        <eq name="vo.goods_type" value="qugoumai">
+                        <span>去购买</span>
+                        </eq>
+                    </a>
+                </div>
+            </div>
+            <!-- like -->
+            <a href="javascript:;" data-title="{$vo.title}" onclick="favor({$vo['goods_id']})" data-key="" title="加入收藏" class="y-like my-like active">
+                <i class="like-ico l-active"><span class="heart_left"></span><span class="heart_right"></span></i>
+            </a>
+            <!-- end like -->
+            <div style="display:block" class="box-hd">
+            </div>
+        </div>
+    </li>
+</volist>
+<script>
+    $("img.lazy").lazyload({effect:'fadeIn'});
+    $(".goods-list li").hover(
+    function(){
+       //当鼠标放上去的时候,程序处理
+       $(this).addClass("hover1 hover");
+    },
+    function(){
+       //当鼠标离开的时候,程序处理
+       $(this).removeClass("hover1 hover");
+    });
+</script>

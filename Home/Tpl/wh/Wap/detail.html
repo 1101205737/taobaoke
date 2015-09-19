@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><php>if($setting['seo_title']){</php>{$setting['seo_title']}<php>}else{</php>{$goods['title']}<php>}</php></title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+        <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="full-screen" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="address=no">
+        <link href="__TMPL__statics/wap/global.css" rel="stylesheet" type="text/css">        
+        <script type="text/javascript" src="__TMPL__statics/wap/base.js"></script>
+        <script src="__TMPL__statics/wap/zepto.min.js"></script>
+        <script src="__TMPL__statics/wap/underscore.js"></script>
+        <script type="text/javascript" src="__TMPL__statics/wap/lazyload.js"></script>
+        <script type="text/javascript" src="__TMPL__statics/wap/base64.js"></script>
+        <style>
+		body{font-family:"微软雅黑"}
+        	.thumb img{width:100%;margin-top:45px;}
+			.price_box{background:#fff;padding:15px 8px;}
+			.price_box .discount_price{color:#f8285c;font-size:36px;}
+			.price_box .price{text-decoration:line-through;font-size:22px;color:#898989;margin-left:10px;}
+			.price_box .goods_title{color:#000;font-size:27px;margin-top:15px;}
+			.gobuy{width:100%;text-align:center;color:#fff;background:#f8285c;line-height:40px;}
+			.hot_tit{border-bottom:2px solid #f8285c;line-height:40px;margin-top:15px;}
+			.hot_tit span{background:#fff;padding:10px 15px;color:#f8285c}
+        </style>
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="app">
+                <div id="head">
+                    <div class="fixtop">
+                        <span id="find" class="">
+                            <i class="ico08">
+                                <img src="__TMPL__statics/wap/ss1.png" width="29px">
+                            </i>
+                        </span>
+                        <span id="index" style="margin-left:130px;width:auto">
+                            <i class="ico07" style="text-align: center;width:auto;margin-top:12px;font-size: 16px;color:#fff;">
+                                {:cutstr($goods['title'],30)}
+                            </i>
+                        </span>
+                    </div>                    
+                    <div id="nav" class="view currents out">
+                        <div id="search-box">
+                            <form method="get" action="http://{$_SERVER['SERVER_NAME']}/index.php" id="search-form">
+                                <div class="box-search">
+                                    <span class="icon-search icon">
+                                    </span>
+                                    <input type="hidden" name="m" value="wap">
+                                    <input type="hidden" name="a" value="index">
+                                    <input x-webkit-speech="" type="text" placeholder="请输入商品关键字" autocomplete="off" value="" name="keywords" id="k">
+                                    <span id="delete-search" class="delete-button" style="display: none;">
+                                        <i class="ico20">
+                                            <img src="__TMPL__statics/wap/X.png">
+                                        </i>
+                                    </span>
+                                </div>
+                                <button type="submit">
+                                    <i class="ico01">
+                                        <img src="__TMPL__statics/wap/search-w.png">
+                                        <img class="active" src="__TMPL__statics/wap/search-o.png" style="display:none;">
+                                    </i>
+                                </button>
+                            </form>
+                        </div>                        
+                        <ul class="nav-list">
+                            <volist name='nav' id='data'>
+                                <php>if($n<3 && intval($data['type'])===1){</php>
+                                <a href="{:U('wap/index',array('sort_id'=>$data['sort_id']))}" title="{$data['sort_name']}">
+                                    <li>{$data['sort_name']}</li></a>
+                                <php>}</php>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+                <div id="goods">
+                    <div id="cover" style="display: none;">
+                    </div>
+                    <div id="dwon">
+                    </div>
+                    <div class="thumb">
+                    	<img src="{$goods['pic_url']}" alt="{$goods['title']}" />
+                    </div>
+                    <div class="price_box">
+                    	<span class="discount_price"><php>if($goods['discount_price']){</php>￥{$goods['discount_price']}<php>}else{</php>￥{$goods['price']}<php>}</php></span>
+                    	<span class="price">￥{$goods['price']}</span>
+                        <div class="goods_title">
+                        	{$goods['title']}
+                        </div>
+                    </div>
+                    <a <php>if($goods['click_url']){</php>href="{$goods['click_url']}"<php>}else{</php>biz-itemid="{$goods['num_iid']}" isconvert=1 href="{$goods['item_url']}"<php>}</php>><div class="gobuy">去<php>if($goods['goods_type']=='taobao'){</php>淘宝<php>}elseif($goods['goods_type']=='tmall'){</php>天猫<php>}</php>抢购</div></a>
+                    <div class="hot_tit">
+                    	<span>热卖推荐</span>
+                    </div>
+                    <ul class="goods-list clear">
+                        <volist name='hot_goods' id='data'>
+                            <a class="goods-a" href="{:U('wap/detail',array('id'=>$data['goods_id']))}" target="_blank"><li style="overflow: hidden;">
+                                
+                                    <img class="lazy" src="{$data['pic_url']}" alt="" title="" style="display: inline;">
+                                
+                                    <h1>{$data['title']}</h1>
+                                
+                                    <div class="list-price buy">
+                                        <span class="price-new">
+                                            <i>￥</i>{$data['discount_price']}
+                                        </span>
+                                        <i class="del">￥{$data['price']}</i>
+                                        <eq name="data.goods_type" value="tmall">
+                                        <span class="good-btn">天猫</span>
+                                        </eq>
+                                        <eq name="data.goods_type" value="taobao">
+                                        <span class="good-btn">淘宝</span>
+                                        </eq>
+                                    </div>
+                                
+                            </li> </a>                                                       
+                        </volist>                                                                                               
+                    </ul>
+                    <br><br>
+                </div>                
+                <div id="foot" style='position:fixed;bottom:0px;height:36px;width:100%'>
+                    <ul class="head-nav" style='margin-top:0px;'>
+                        <a href="{:SITE_URL}index.php?m=wap">
+                            <li id="nav_0">
+                                首页
+                            </li>
+                        </a>
+                        <php>$n=0</php>
+                        <volist name='nav' id='data'>
+                            <php>if($n<3 && intval($data['type'])===1){</php>
+                            <a href="{:U('wap/index',array('sort_id'=>$data['sort_id']))}" title="{$data['sort_name']}">
+                                <li id="nav_{$data['sort_id']}">
+                                    {$data['sort_name']}
+                                </li>
+                            </a>
+                            <php>$n++;}</php>
+                        </volist>                        
+                    </ul>
+                </div>
+                <script>$("#nav_{:intval($_GET['sort_id'])}").addClass('active');</script>
+                <script type="text/javascript" src="__TMPL__statics/wap/mjp.min.js">
+                </script>
+                <a class="back-top" onclick="$('html,body').animate({scrollTop:0},500);" href="javascript:;">
+                    <img style="width:40px;" src="__TMPL__statics/wap/back-top.png">
+                </a>
+                <script type="text/javascript">
+                    (function(win,doc){
+        var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+        if (!win.alimamatk_show) {
+            s.charset = "utf8";
+            s.async = true;
+            s.src = "http://a.alimama.cn/tkapi.js";
+            h.insertBefore(s, h.firstChild);
+        };
+        var o = {
+            pid: "{$setting['tb_api_pid']}",/*推广单元ID，用于区分不同的推广渠道mm_43412205_9948295_33168978*/
+            appkey: "{$setting['tb_api_key']}",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+            unid: "",/*自定义统计字段*/
+            type: "click" /* click 组件的入口标志 （使用click组件必设）*/
+        };
+        win.alimamatk_onload = win.alimamatk_onload || [];
+        win.alimamatk_onload.push(o);
+    })(window,document);
+                </script>
+            </div>
+        </div>
+    </body>
+</html>

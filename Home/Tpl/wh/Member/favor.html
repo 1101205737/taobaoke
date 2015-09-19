@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>会员中心 - {$setting['site_seo_title']} - {$setting['site_name']}</title>
+    <meta name="keywords" content="{$setting['site_seo_keywords']}" />
+    <meta name="description" content="{$setting['site_seo_description']}">
+    <include file="Public:head" />
+    <link href="__TMPL__statics/css/index.css" rel="stylesheet">
+    <link href="__TMPL__statics/css/list.css" rel="stylesheet">
+</head>
+
+<body class="body-white">
+    <include file="Public:nav" />
+    <div class="main">
+    <h2 style="font-size:16px;">&nbsp;</h2>
+        <ul class="goods-list clear">
+            <volist name='goods' id='vo'>
+            <li>
+                <div class="list-good buy">
+                    <div class="good-pic">
+                        <a target="_blank" class="pic-img" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                            <img class="lazy good-pic" src="{$vo.pic_url}" alt="{$vo.title}" style="display: inline;">
+                        </a>
+                    </div>
+                    <h3 class="good-title">
+                        <a target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">{$vo.title}</a>
+                        <div style="display:none;" class="icon-all">
+                        </div>
+                    </h3>
+                    <div class="good-price">
+                        <span class="price-current">
+                            <em>￥</em>
+                            <php>if($vo['discount_price']>0){echo bcmul($vo['discount_price'], 1, 1);}else{echo bcmul($vo['price'], 1, 1);}</php>
+                        </span>
+                        <div class="btn buy m-buy">
+                            <a rel="nofollow" target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                                <eq name="vo.goods_type" value="tmall">
+                                    <em class="m-icon"></em>
+                                    <span>天猫</span>
+                                </eq>
+                                <eq name="vo.goods_type" value="taobao">
+                                    <em class="t-icon"></em>
+                                    <span>淘宝</span>
+                                </eq>
+                                <eq name="vo.goods_type" value="qugoumai">
+                                    <span>去购买</span>
+                                </eq>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- like -->
+                    <a href="{:U('member/unfavor',array('op'=>'do','id'=>$vo['goods_id']))}" title="加入收藏" class=" y-like my-like active">
+                        <i class="like-ico l-active"><span class="heart_left"></span><span class="heart_right"></span></i>
+                    </a>
+                    <!-- end like -->
+                    <div style="display:block" class="box-hd">
+                    </div>
+                </div>
+            </li>
+        	</volist>
+        </ul>
+        <div class="pagination clear">
+            
+        </div>
+    </div>
+    <include file="Public:footer" />
+    <include file="Public:scripts" />
+    <script src="/public/js/slippry.min.js"></script>
+    <script>
+    $("img.lazy").lazyload({threshold:0,failure_limit:30,placeholder : "__TMPL__statics/images/blank.png",});
+    
+    $(".goods-list li").hover(
+    function(){
+       //当鼠标放上去的时候,程序处理
+       $(this).addClass("hover1 hover");
+    },
+    function(){
+       //当鼠标离开的时候,程序处理
+       $(this).removeClass("hover1 hover");
+    });	
+
+</script>
+</body>
+
+</html>

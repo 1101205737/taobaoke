@@ -1,0 +1,56 @@
+<include file="common_admin:header" />
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <include file="common_admin:left" />
+        <div class="main-content">
+            <include file="common_admin:nav" />
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->                        
+                        <form action="{:U('admin/topicList',array('op'=>'order'))}" method="post">                            
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr class="color428bca">
+                                            <th>版本号</th>
+                                            <th>更新时间</th>
+                                            <th>更新内容</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                <php>if($updateList){</php>
+                                    {:$updateList}
+                                    </tbody>
+                                </table>
+                                <php>}else{</php>
+                                <tr><td colspan="5" class="empty"><span class="empty"><i>没有找到数据.</i></span></td></tr>
+                                </tbody>
+                                </table>
+
+                                <php>}</php>
+                            </div>
+                        </form>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container-inner -->
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div>
+<include file="common_admin:footer" />

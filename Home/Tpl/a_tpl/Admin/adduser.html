@@ -1,0 +1,98 @@
+<include file="common_admin:header" />
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <include file="common_admin:left" />
+        <div class="main-content">            
+            <include file="common_admin:nav" />
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->                        
+                            <form class="form-horizontal" role="form" action="{:U('admin/adduser')}" method="post">
+                                {:setParam(array('op'=>'do','uid'=>$user['uid']))}
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 会员名称 <span style="color:#f00;">*</span></label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="" readonly="" value="{$user['uname']}" class="col-sm-12" />
+                                        </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 账号密码 <span style="color:#f00;">*</span></label>
+                                        <div class="col-sm-9">
+                                                <input type="text" name="password" value="" class="col-sm-12" />
+                                        </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> EMAIL <span style="color:#f00;">*</span></label>
+                                        <div class="col-sm-9">
+                                                <input type="text" name="email" value="{$user['email']}" class="col-sm-12" />
+                                        </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 会员积分 <span style="color:#f00;">*</span></label>
+                                        <div class="col-sm-9">
+                                                <input type="text" name="jifen" value="{$user['jifen']}" class="col-sm-12" />
+                                        </div>
+                                </div>
+                                <php>if($qx){</php>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 管理员权限 <span style="color:#f00;">*</span></label>
+                                        <div class="col-sm-9">
+                                        <php>$user['qx'] = unserialize($user['qx']);</php>
+                                        <label>
+                                                <input id='selectall' type="checkbox" class="ace" value=''>
+                                                <span class="lbl">全选</span>
+                                            </label>
+                                        <volist name='qx' id='data'>                                            
+                                            &nbsp;&nbsp;
+                                            <label>
+                                                <input name="qx[]" <php>if(in_array($data,$user['qx']))echo 'checked';</php> type="checkbox" class="ace" value='{$data}'>
+                                                <span class="lbl">{$key}</span>
+                                            </label>
+                                        </volist>
+                                        </div>
+                                </div>
+                                <php>}</php>
+                                
+                                <div class="clearfix form-actions">
+                                    <div class="col-md-offset-4 col-md-4">
+                                        <button class="btn btn-info btn-block" type="submit">
+                                            <i class="icon-ok bigger-110"></i>
+                                            确认
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>                        
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container-inner -->    
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+    <script>
+        $("#selectall").change(function(){    
+    if(this.checked){    
+        $("input[name='qx[]']").prop("checked", true);   
+    }else{    
+        $("input[name='qx[]']").prop("checked", false); 
+    }    
+});
+    </script>
+</div><!-- /.main-container -->
+<include file="common_admin:footer" />

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$sort['sort_name']} - {$setting['site_name']}</title>
+        <meta name="keywords" content="{$setting[site_seo_keywords]}" />
+        <meta name="description" content="{$setting[site_seo_description]}">
+    <include file="Public:head" />
+    <style>
+        .pagination div{
+            background: #e8ae49;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class=''>
+<include file="Public:nav" />
+<!--主体 start-->
+<div class="container tc-main" >
+    <div class="pg-opt pin">
+        <div class="container">
+            <h2>
+                <a href='{$setting[site_domain]}'>首页</a>
+                &nbsp;&nbsp;>>&nbsp;&nbsp;
+                <php>$parentSort = IndexModel::I()->getSortById($sort['p_id']);</php>
+                <php>if($parentSort){</php><a href="{:U('article/artlist',array('id'=>$parentSort['sort_id']))}">{$parentSort['sort_name']}</a> &gt;<php>}</php>
+                <a href="{:U('article/artlist',array('id'=>ggp('id:i')))}">{$sort['sort_name']}</a>
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span9">
+            <div class="" id='artlist'>
+                <volist name="artList" id="data">
+                    <div class="list-boxes" style='box-shadow: 0 1px 2px rgba(0,0,0,0.05);'>
+                        <h2><a href="{:U('article/detail',array('aid'=>$data['aid']))}">{$data[title]}</a></h2>
+                        <p style='margin:20px;min-height: 36px;'>{:cutstr(strip_tags($data['content']),700)}</p>
+                        <div>
+                            <a class="btn btn-warning pull-right" href="{:U('article/detail',array('aid'=>$data['aid']))}">查看更多</a>
+                        </div>
+                    </div>
+                </volist>
+            </div>
+            <div class="pagination">
+                <div>加载更多...</div>
+                <script type='text/javascript'>
+                    
+                </script>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="tc-box first-box">
+                <div class="headtitle">
+                    <h2>热门文章</h2>
+                </div>
+                <div class="ranking">
+                    <ul class="unstyled">
+                        <php>$num=1;$zhiding = D('Article')->getZhiding();</php>
+                        <foreach name="zhiding" item="data">                            
+                            <li><i><php>echo $num++;</php></i><a title="{$data['title']}" href="{:U('article/detail',array('aid'=>$data['aid']))}">{$data['title']}</a></li>
+                        </foreach>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--主体 end-->
+<include file="Public:footer" />
+<include file="Public:scripts" />
+<script src="/public/js/slippry.min.js"></script>
+<script type="text/javascript">
+    var loadObj = $('.pagination div');
+    var totalpage = {$totalpage};
+    var nowpage = 1;
+    if(totalpage==nowpage) loadObj.html('没有更多最后一页');
+    $('.pagination div').click(function(){
+        if(totalpage==nowpage){
+            return false;
+        }
+        $.get('index.php?m=article&a=artlist&ajax=1&id={$sort_id}&p='+(nowpage+1),function(html){
+            $("#artlist .list-boxes:last").after(html);
+        });
+    });
+</script>
+</body>
+</html>

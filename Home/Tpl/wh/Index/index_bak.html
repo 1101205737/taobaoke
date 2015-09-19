@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$setting['site_seo_title']} - {$setting['site_name']}tdsfsdf</title>
+    <meta name="keywords" content="{$setting['site_seo_keywords']}" />
+    <meta name="description" content="{$setting['site_seo_description']}">
+    <include file="Public:head" />
+    <link href="__TMPL__statics/css/slippry/slippry.css" rel="stylesheet">
+    <link href="__TMPL__statics/css/index.css" rel="stylesheet">
+    <link href="__TMPL__statics/css/list.css" rel="stylesheet">
+</head>
+
+<body class="body-white">
+    <include file="Public:nav" />
+    <ul id="homeslider" class="unstyled"><php>$ad = getAd('slide',99,$adlist)</php>
+        <volist name='ad' id='data'>
+        	<li style="background: url({$data['pic_url']}) no-repeat scroll center center transparent; z-index: 1; opacity: 0;height:241px;"><a class="pic" href="{$data['url']}" <php>if($data['blank']){</php>target="_blank"<php>}</php>></a></li>
+        </volist>
+    </ul>
+    <div class="new-users clear">
+        <ul class="fl only">
+            <li><i class="f"></i>
+                <span>淘宝天猫特卖1折起</span>
+            </li>
+            <li><i class="s"></i>
+                <span>全场9.9元包邮</span>
+            </li>
+            <li><i class="t"></i>
+                <span>100%验货质检</span>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="main">
+        <ul class="goods-list clear">
+            <volist name='goods' id='vo'>
+            <li>
+                <div class="list-good buy">
+                    <div class="good-pic">
+                        <a target="_blank" class="pic-img" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                            <img class="lazy good-pic" src="{$vo.pic_url}" alt="{$vo.title}" style="display: inline;">
+                        </a>
+                    </div>
+                    <h3 class="good-title">
+                        <a target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">{$vo.title}</a>
+                        <div style="display:none;" class="icon-all">
+                        </div>
+                    </h3>
+                    <div class="good-price">
+                        <span class="price-current">
+                            <em>￥</em>
+                            <php>if($vo['discount_price']>0){echo bcmul($vo['discount_price'], 1, 2);}else{echo bcmul($vo['price'], 1, 2);}</php>
+                        </span>
+                        <span class="des-other">
+                            <span class="price-old">
+                                <em>￥</em>
+                                <php>echo bcmul($vo['price'], 1, 2);</php>
+                            </span>
+                            <span class="discount">(
+                                <em>
+                                    <php>echo sprintf( "%.2f",$vo['discount_price']/$vo['price'])*10;</php>
+                                </em>折)
+                            </span>
+                        </span>
+                        <div class="btn buy m-buy">
+                            <a rel="nofollow" target="_blank" href="{:U('goods/detail',array('id'=>$vo['goods_id']))}">
+                                <eq name="vo.goods_type" value="tmall">
+                                    <em class="m-icon"></em>
+                                    <span>天猫</span>
+                                </eq>
+                                <eq name="vo.goods_type" value="taobao">
+                                    <em class="t-icon"></em>
+                                    <span>淘宝</span>
+                                </eq>
+                                <eq name="vo.goods_type" value="qugoumai">
+                                    <span>去购买</span>
+                                </eq>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- like -->
+                    <a href="javascript:;" data-title="{$vo.title}" onClick="favor({$vo['goods_id']})" data-key="" title="加入收藏" class="y-like my-like active">
+                        <i class="like-ico l-active"><span class="heart_left"></span><span class="heart_right"></span></i>
+                    </a>
+                    <!-- end like -->
+                    <div style="display:block" class="box-hd">
+                    </div>
+                </div>
+            </li>
+        	</volist>
+        </ul>
+        <div class="pagination clear">
+        <div>
+        	<div class="col-md-12">
+            <button class="btn btn-danger" style="width:1200px;" id="getmore">查看更多&gt;&gt;</button>
+            </div>
+        </div>
+            
+        </div>
+    </div>
+    <include file="Public:footer" />
+    <include file="Public:scripts" />
+    <script src="/public/js/slippry.min.js"></script>
+    <script>
+    $("img.lazy").lazyload({threshold:0,failure_limit:30,placeholder : "__TMPL__statics/images/blank.png",});
+    $(function() {
+        var demo1 = $("#homeslider").slippry({
+            transition: 'fade',
+            useCSS: true,
+            captions: false,
+            speed: 1000,
+            pause: 3000,
+            auto: true,
+            preload: 'visible'
+        });
+    });
+    $(".goods-list li").hover(
+    function(){
+       //当鼠标放上去的时候,程序处理
+       $(this).addClass("hover1 hover");
+    },
+    function(){
+       //当鼠标离开的时候,程序处理
+       $(this).removeClass("hover1 hover");
+    });
+	$(function(){
+	page=2;
+	totalPage = <php>echo $totalPage;</php>;
+	$("#getmore").click(function(){
+		if(page<=totalPage){
+			$(this).attr('disabled','disabled');
+			$(this).addClass('disabled');
+			$(this).html('正在努力获取中...');
+			$.get('index.php?m=ajax&a=ajgetgoods',{p:page,once:20},function(html){
+				$('.goods-list li:last').after(html);
+				if(page>totalPage){
+					$("#getmore").attr('disabled','disabled');
+					$("#getmore").addClass('disabled');
+					$("#getmore").html('下面就木有了，亲~');
+				}else{
+					$("#getmore").removeAttr('disabled');$("#getmore").removeClass('disabled');$("#getmore").html('查看更多&gt;&gt;');
+				}
+			});
+		}
+		
+	});
+	})
+
+</script>
+	<script>
+        if(''==''){
+            $(".nav li:first").css('background','#b1191a');
+        }else{
+            $(".nav li[sort_id='']").css({background:'#b1191a',borderTop:"4px solid #ff8800",height:"36px"});
+        }
+	$(function(){
+$("form[method!='get']").submit(function(){
+            if(!submit) return false;
+            $(this).ajaxSubmit({dataType:'json',
+                beforeSubmit:function(){
+                    submit = false;
+                    showmsg('正在提交');
+                },success:function(data){
+                    submit = true;
+                    if(data.state==1) setTimeout(function(){window.location.reload();},500);
+                    showmsg(data.msg);
+                }
+            });
+            return false;
+        });              
+		$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
+	
+		;(function($){
+			$.fn.totop=function(opt){
+				var scrolling=false;
+				return this.each(function(){
+					var $this=$(this);
+					$(window).scroll(function(){
+						if(!scrolling){
+							var sd=$(window).scrollTop();
+							if(sd>100){
+								$this.fadeIn();
+							}else{
+								$this.fadeOut();
+							}
+						}
+					});
+
+				
+					$this.click(function(){
+						scrolling=true;
+						$('html, body').animate({
+							scrollTop : 0
+						}, 500,function(){
+							scrolling=false;
+							$this.fadeOut();
+						});
+					});
+				});
+			};
+		})(jQuery);
+		$(".side_right").totop();
+	});
+	var F_totoptips = function(){
+        var F_isMac = function(){
+            if(navigator.userAgent.indexOf("Mac") > -1){
+                $(".totop-tips strong").html("Command+d");
+            }else{
+                $('body').on("keydown",function(e){
+                    if(e.ctrlKey && 68 == e.keyCode) {
+                        ever_open();
+                        return true;
+                    }
+                });
+            }
+        }
+        var tips_close = function(){
+            $("div.totop-tips").hide();
+        }
+        var ever_open = function(){
+            setCookie("toptips","1", 1);
+            tips_close();
+        }
+        if(getCookie("toptips") == null){
+            $("div.totop-tips").show();
+            $(".jiu-side-nav").css("top","196px");
+            var $tips_a = $("div.totop-tips a")
+            $tips_a.on("click",ever_open);
+            $("div.totop-tips .closet").on("click",tips_close);
+            F_isMac();
+        }else{
+            $("div.totop-tips").hide();
+        }
+    }
+    F_totoptips();
+</script>
+<script>
+$(function(){
+	$(".sub_sort_bar").hover(function(){
+		$(this).children(".sub_sort").show();
+		$(this).children('a').children('li').addClass('sub_sort_bar_hover');
+	},function(){
+		$(this).children(".sub_sort").hide();
+		$(this).children('a').children('li').removeClass('sub_sort_bar_hover');
+	});
+	$(".nav_sub_sort_bar").hover(function(){
+		$(this).addClass('nav_bar_hover');
+		w1 = $(this).width();
+		w2 = $(this).children(".nav_sub_sort").width();
+		$(this).children(".nav_sub_sort").css({marginLeft:(w1-w2)*0.5});
+		$(this).children(".nav_sub_sort").slideDown("fast");
+	},function(){
+		$(this).children(".nav_sub_sort").hide();
+		$(this).removeClass('nav_bar_hover');
+	});
+	
+	$('.display_cate').hover(function(){
+		$(this).children('.catebox').css({background:"#fff"});
+		cate3_obj= $(this).children('.cate_3');
+		h2 = cate3_obj.height();
+		
+		cate3_obj.css({height:h2})
+		all_sort_obj = $('.all_sort')
+		all_sort_obj.width(967);
+		cate3_obj.show();
+		if(cate3_obj.css('display')=='block'){
+			cate3_offset_top = cate3_obj.offset().top;
+			if(cate3_offset_top<161){
+				cate3_obj.css({top:"0"});
+				h1 = $('.display_cate:last').offset().top+$('.display_cate:last').height();
+				
+				h3 = cate3_obj.offset().top;
+				if(h1-h2-h3<15){
+					cate3_obj.offset({top:202})
+				}
+			}
+		}
+		cate3_obj.css({background:"#fff"})
+	},function(){
+		$(this).children('.cate_3').hide();	
+		$('.all_sort').width(195);
+		$(this).children('.catebox').css({background:"#f1262e"})
+	});
+})
+</script>
+<script>
+var submit = true;
+function ajHref(obj){
+        if(!submit) return false;
+        showmsg('正在提交');
+        submit = false;
+        $.get($(obj).attr('href'),function(data){
+            submit = true;
+            if(data.state==1) window.location.reload();//setTimeout(function(){window.location.reload();},500);
+            showmsg(data.msg);
+        },'json');
+        return false;
+}    
+function favor(goodsid){
+    $.get("/ajax/favor.html",{id:goodsid},function(json){
+            showmsg(json.info);
+    })    
+}    
+function showmsg(msg){
+	$("#tip").remove();
+	$tip = $('<div id="tip" style="font-weight:bold;position:fixed;top:240px;left: 50%;z-index:9999;background:rgb(25, 161, 219);padding:18px 30px;border-radius:8px;color:#fff;font-size:16px;">'+msg+'</div>');
+    $('body').append($tip);
+	$tip.stop(true).css('margin-left', -$tip.outerWidth() / 2).fadeIn(500).delay(2000).fadeOut(500);
+}
+</script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.pack.blockUI.SuperSlide.js"></script>
+<script type="text/javascript">$(".slideBox").slide( { mainCell:".bd ul",effect:"left",autoPlay:true} );</script>
+<script>
+    $("img.lazy").lazyload({threshold:0,failure_limit:30,placeholder : "/Home/Tpl/b2r/statics/images/blank.png",});
+</script>
+<script>
+	$(".morecate,.cate_3_bar").hover(function(){
+		var h = 0;
+		$('.all_sort ul.display_cate').each(function(){
+			h = h + $(this).height();
+		})
+		$('.all_sort').height(Math.max(h,390));
+	},function(){});
+	$('.cate_3_bar').mouseleave(function(){
+		$('.all_sort').height(390);
+	});
+</script>
+<script>
+	$(function(){
+		$('.bar').hover(function(){
+			$('.bar').css({background:"#f9f9f9",borderBottom:'1px solid #ccc',color:"#5e5e5e"});
+			$(this).css({background:"#fff",borderBottom:'none',color:"#ff6600"});
+			$(".ad_content").hide();
+			id = $(this).attr('id');
+			$("#c_"+id).show();
+		},function(){})
+	})
+</script>
+<script>
+	function formvalidate(){
+		var uname = $("input[name='uname']").val();
+		var pwd = $("input[name='password']").val();
+		if(!uname){
+			showmsg("用户名不能为空");
+			$("input[name='uname']").focus();
+			return false;
+		}else if(!pwd){
+			showmsg("密码不能为空");
+			$("input[name='password']").focus();
+			return false;
+		}else{
+			return true;
+		}
+	}
+</script>
+</body>
+
+</html>

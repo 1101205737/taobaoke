@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$setting['site_seo_title']} - {$setting['site_name']}</title>
+        <meta name="keywords" content="{$setting['site_seo_keywords']}" />
+        <meta name="description" content="{$setting['site_seo_description']}">
+    <include file="Public:head" />
+</head>
+<body class="body-white">
+<include file="Public:nav" />
+<div class="container tc-main">
+    <div class="row">
+        <div class="span2">
+            <include file="Public:usernav"/>
+        </div>
+        <div class="span10">
+            <div class="tabs">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#one" data-toggle="tab"><i class="fa fa-list-alt"></i> 积分日志</a></li>
+                </ul>
+                <div class="tab-content">
+                    <style>
+                        #one table{width:100%}
+                        #one table td,#one table th{border:1px solid #ccc;padding:10px;text-align: center}
+                        .fpage{margin-top:18px;margin-left:5px;font-family:"微软雅黑","宋体"}
+                        .fpage li{float:left;}
+                        .fpage a{padding:5px 7px;margin:0 3px;}
+                        .fpage .active,.fpage a:hover,.fpage .ahover{color:#fff;background:#08c;}
+                        
+                    </style>
+                    <div class="tab-pane active" id="one">
+                        <table>
+                            <tr>
+                                <th>积分</th>                                
+                                <th>备注</th>
+                                <th>时间</th>
+                            </tr>
+                            <volist name="logList" id='data'>
+                                <tr>
+                                <php>if($data['jf_goods_jf']>0){</php>
+                                    <td><font color='green'>+{$data['jf_goods_jf']}</font></td>
+                                <php>}else{</php>
+                                    <td><font color='red'>{$data['jf_goods_jf']}</font></td>
+                                <php>}</php>
+                                <php>
+                                    if($data['order_id']){
+                                    $data['beizhu'] = unserialize($data['beizhu']);
+                                    $data['beizhu'] = '积分商城兑换“'.$data['beizhu']['jf_goods_name'].'”';
+                                    }
+                                </php>
+                                <td>{$data['beizhu']}</td>
+                                <td>{:date('Y-m-d H:i:s',$data['ctime'])}</td>
+                                </tr>
+                            </volist>
+                        </table>
+                    </div>
+                </div>							
+            </div>
+            <style>
+
+
+
+            </style>
+            <div class="fpage">
+                <ul>
+                    {$page}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--主体 start-->
+<!--主体 end-->
+<include file="Public:footer" />
+<include file="Public:scripts" />
+<script src="/public/js/slippry.min.js"></script>
+<script>
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('breadcrumbs', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>主页
+        </li>
+        <li></li>
+        <li class="active"></li>
+    </ul><!-- .breadcrumb -->
+</div>
+<style type="text/css">
+    .breadcrumb .active i{display:none;}
+</style>
+<script type="text/javascript">
+    var m1 = o2.find('.menu-text').html();
+    var m2 = o1.find('a').html();        
+    $("#breadcrumbs .breadcrumb li:eq(1)").html(m1);
+    $("#breadcrumbs .breadcrumb li:eq(2)").html(m2);
+</script>

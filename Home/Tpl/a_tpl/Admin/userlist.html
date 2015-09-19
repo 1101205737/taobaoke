@@ -1,0 +1,130 @@
+<include file="common_admin:header" />
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+        ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <include file="common_admin:left" />
+        <div class="main-content">
+            <include file="common_admin:nav" />
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li <php>echo $level==0?'class="active"':''</php>>
+                                <a data-toggle="tab" href="javascript:;" onclick="location.href = '{:U('admin/userlist',array('level'=>0))}'">
+                                    普通会员
+                                </a>
+                                </li>
+
+                                <li <php>echo $level>0?'class="active"':''</php>>
+                                <a data-toggle="tab" href="javascript:;" onclick="location.href = '{:U('admin/userlist',array('level'=>1))}'">
+                                    管理员
+                                </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane in active">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <form action="index.php" method="get" >                    
+                                                {:setParam(array('m'=>'admin',a=>'userlist',level=>$level))}
+                                                <div class="row">
+                                                    <div class='col-sm-2'>
+                                                        <input class="form-control" placeholder='会员名称' type="text" name='uname' value='{$uname}'  />
+                                                    </div>
+                                                    <div class='col-sm-2'>
+                                                        <input class="form-control" placeholder='UID' type="text" name='uid' value='{$uid}'  />
+                                                    </div>
+                                                    <div class='col-sm-2'>
+                                                        <input class="form-control" placeholder='邮箱' type="text" name='email' value='{$email}'  />
+                                                    </div>
+                                                    <div class='col-sm-2'>                                        
+                                                        <button type="submit" class="btn btn-purple btn-sm">
+                                                            搜索
+                                                            <i class="icon-search icon-on-right bigger-110"></i>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                                <div class="space-6"></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr class="color428bca">
+                                                    <th>UID</th>
+                                                    <th>会员名称</th>
+                                                    <th>邮箱</th>
+                                                    <th>积分</th>
+                                                    <th>注册时间</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <php>if($userlist){</php>
+                                            <volist name="userlist" id="data">
+                                                <tr class="pointer even" title="">
+                                                    <td>{$data['uid']}</td>
+                                                    <td>{$data['uname']}</td>
+                                                    <td>{$data['email']}</td>
+                                                    <td>{$data['jifen']}</td>
+                                                    <td>{:date('Y-m-d',$data['ctime'])}</td>
+                                                    <td>
+                                                        <a href="{:U('admin/adduser',array('uid'=>$data['uid']))}">编辑</a>
+                                                        |
+                                                <php>if($data['uname']!='admin'){</php>
+                                                <a onclick="return ajHref(this);" href="{:U('admin/userlist',array('op'=>'level' ,'uid'=>$data['uid']))}">管理员</a>
+                                                |
+                                                <php>}</php>
+                                                <a onclick="if(confirm('确定删除')){return ajHref(this);};return false;" href="{:U('admin/userList',array('op'=>'del','uid'=>$data['uid']))}">删除</a>
+                                                </td>
+                                                </tr>
+                                            </volist>
+                                            </tbody>
+                                        </table>
+                                        <php>if($page){</php>
+                                        <div class="row">                                                
+                                            <div class="col-sm-10 ">
+                                                <ul class='pagination pull-right'>{$page}</ul>
+                                            </div> 
+                                        </div>
+                                        <php>}</php>  
+                                        <php>}else{</php>
+                                        <tr><td colspan="6" class="empty"><span class="empty"><i>没有找到数据.</i></span></td></tr>
+                                        </tbody>
+                                        </table>
+
+                                        <php>}</php>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->                        
+
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container-inner -->
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div>
+<include file="common_admin:footer" />

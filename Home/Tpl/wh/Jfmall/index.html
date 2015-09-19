@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <title>{$setting['site_seo_title']} - {$setting['site_name']}</title>
+    <meta name="keywords" content="{$setting['site_seo_keywords']}" />
+    <meta name="description" content="{$setting['site_seo_description']}">
+    <include file="Public:head" />
+    <link href="__TMPL__statics/css/goods.css" rel="stylesheet" />
+    <style>
+    #article_content img {
+        height:auto !important
+    }
+	.old_price{text-decoration:line-through}
+    </style>
+</head>
+
+<body class="">
+    <include file="Public:nav" />
+    <!-- 主体 -->
+    <div class="main mt20 clear">
+        <!-- 面包屑 -->
+        <div class="place-show">
+            <div class="place-explain fl">
+                <a href="{$site_host}">{$setting['site_name']}</a>
+                &gt;
+                积分商城
+            </div>
+        </div>
+        <!--items start-->
+        <div class="show_box fl">
+            <volist name='list' id='data'>
+            <div class="show_body mb20 clear">
+                <div class="show_img fl">
+                    <a class="show_big buy" title="{$data['jf_goods_name']}" href='javascript:;'>
+                        <img alt="" src="{$data['jf_goods_img']}" height="310" width="310">
+                    </a>
+                </div>
+                <div class="price-info pr  fl">
+                    <h3 style='margin-bottom:0px;' class="title">{$data['jf_goods_name']}</h3>
+                    <p class="body_price clear">
+                        <span class="price_f fl buy">
+                            <em class="price-ico">积分</em>
+                            <em class="price">{$data['jf_goods_jf']}</em>
+                            <php>if($data['jf_goods_expire']){</php>
+                            <em class="old_price">（市场价格：{$data['jf_goods_expire']}）</em>
+                            <php>}</php>
+                        </span>
+                    </p>
+                    <p style="display:block;font-size: 17px;margin: 10px 0;height: 105px;display:block">                    
+                    {$data['intro']}
+                    </p>
+                    <p class="btn">
+                        <a class="go_btn buy fl" href="{:U('jfmall/index',array('op'=>'do','jf_goods_id'=>$data['jf_goods_id']))}">
+                            <span>立即兑换</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            </volist>
+            
+        </div>
+        <div class="hot_box fr">
+            <div class="hot_goods">
+                <h3>
+                    <div class="line"></div>
+                    <div class="line-txt">HOT同类热卖</div>
+                </h3>
+                <ul>
+                    <volist name="hot_goods" id="v">
+                    <li>
+                        <a target="_blank" href="{:U('goods/detail',array('id'=>$v['goods_id']))}">
+                            <img src="{$v.pic_url}" alt="{$v.title}">
+                            <div class="hot_price">
+                                <em class="hot_yang">￥</em>
+                                <em class="hot_num">{$v.discount_price}</em>
+                            </div>
+                        </a>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /主体 -->
+    <include file="Public:footer" />
+    <include file="Public:scripts" />
+    <script type="text/javascript">
+        function show(i) {
+            $('.steup').hide();
+            $('.steup_0'+i).show();
+        }
+        $('#bady-tab').waypoint(function(event, direction) {
+            $(this).parent().toggleClass('sticky', direction === "down");
+            event.stopPropagation();
+        }); 
+		
+    </script>
+    <!--淘点金代码-->
+    <script type="text/javascript">
+    (function(win,doc){
+        var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+        if (!win.alimamatk_show) {
+            s.charset = "utf8";
+            s.async = true;
+            s.src = "http://a.alimama.cn/tkapi.js";
+            h.insertBefore(s, h.firstChild);
+        };
+        var o = {
+            pid: "mm_43412205_9948295_33168978",/*推广单元ID，用于区分不同的推广渠道*/
+            appkey: "23189880",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+            unid: "",/*自定义统计字段*/
+            type: "click" /* click 组件的入口标志 （使用click组件必设）*/
+        };
+        win.alimamatk_onload = win.alimamatk_onload || [];
+        win.alimamatk_onload.push(o);
+    })(window,document);
+    </script>
+</body>
+
+</html>
